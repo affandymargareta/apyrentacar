@@ -36,7 +36,7 @@
                     <h3 class="heading"><a href="#">Caren Gibran</a></h3>
                     <div class="meta">
                       <!-- <div><a href="#"><span class="icon-calendar"></span>Oct. 29, 2019</a></div> -->
-                      <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                      <!-- <div><a href="#"><span class="icon-person"></span> Admin</a></div> -->
                       <!-- <div><a href="#"><span class="icon-chat"></span> 19</a></div> -->
                     </div>
                   </div>
@@ -54,7 +54,7 @@
           <div class="col-lg-9">
           <!-- <h2 class="mb-3">It is a long established fact a reader be distracted</h2> -->
           <div class="table-responsive">
-          <table class="table table-bordered" >
+          <table id="example" class="table table-striped table-bordered">
               <thead>
                 <tr>
                 <th style="font-size: 12px; padding: 10px;">Invoice</th>
@@ -126,20 +126,15 @@
 
 
 @endsection
-<!-- @section('js')
-<script>
-$(document).ready(function() {
-        // direct buy
-    $('.direct-buy').on('click', function(){
-        let wilayah = this.dataset.wilayah
-        let wilayah = $('[name=wilayah]').val()
-        let mulai = $('[name=mulai]').val()
-        let durasi = $('[name=durasi]').val()
-        let jam = $('[name=jam]').val()
-        window.open(`{{ url('searching') }}?wilayah%5B%5D=${wilayah}&mulai=${mulai}&durasi=${durasi}&jam=${jam}`)
-
-    })
-
-  });
-</script>
-@endsection -->
+@section('css')
+    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap4.css" rel="stylesheet">
+    @endsection
+    @section('js')
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap4.js"></script>
+    <script>
+      $(document).ready(function() {
+          $('#example').DataTable();
+      } );
+    </script>
+    @endsection

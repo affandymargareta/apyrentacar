@@ -123,8 +123,13 @@
               </div>
 
               <!-- Submit button -->
-              <div class="d-grid gap-2">
+              <div class="d-grid gap-2 mb-3">
                 <button type="submit" class="btn" style="background-color: #6747c7; color :#fff;">Sign in</button>
+              </div>
+
+              
+              <div class="d-grid gap-2">
+                <a  href="{{ route('register') }}" class="btn" style="background-color: #6747c7; color :#fff;">Sign Up</a>
               </div>
 
               <!-- Register buttons -->

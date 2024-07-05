@@ -36,7 +36,7 @@
                     <h3 class="heading"><a href="#">Caren Gibran</a></h3>
                     <div class="meta">
                       <!-- <div><a href="#"><span class="icon-calendar"></span>Oct. 29, 2019</a></div> -->
-                      <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                      <!-- <div><a href="#"><span class="icon-person"></span> Admin</a></div> -->
                       <!-- <div><a href="#"><span class="icon-chat"></span> 19</a></div> -->
                     </div>
                   </div>
