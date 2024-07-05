@@ -557,6 +557,7 @@ git remote -v (for checking current repository)
 git add -A(add all files)
 
 git commit -m 'Added my project'
+git commit -m 'https://github.com/affandymargareta/apyrentacar.git'
 
 git pull --rebase origin master
 
@@ -578,7 +579,7 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/affandymargareta/apy-rent-a-car.git
+git remote add origin https://github.com/affandymargareta/apyrentacar.git
 git push -u origin main
 …or push an existing repository from the command line
 git remote add origin https://github.com/affandymargareta/apy-rent-a-car.git
