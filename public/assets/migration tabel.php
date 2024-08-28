@@ -97,7 +97,6 @@ php artisan make:model --migration --controller Admin
 php artisan make:model --migration --controller Banner
 php artisan make:model --migration --controller Blog --resource 
 php artisan make:model --migration --controller Cart
-php artisan make:model --migration --controller City
 php artisan make:model --migration --controller CityPrice
 php artisan make:model --migration --controller Company
 php artisan make:model --migration --controller Contact
@@ -108,10 +107,14 @@ php artisan make:model --migration --controller ProductCar
 php artisan make:model --migration --controller ProductImage
 php artisan make:model --migration --controller ProductName
 php artisan make:model --migration --controller Province
+php artisan make:model --migration --controller City
+
 php artisan make:model --migration --controller Seller
 php artisan make:model --migration --controller SellerPayment
 
 php artisan make:model --migration --controller AddOn
+
+php artisan make:model --migration --controller Fasilitas
 
 
 php artisan make:model --migration --controller Company --resource   
@@ -129,6 +132,23 @@ php artisan make:model --migration --controller Order
 php artisan make:model --migration --controller ProductName --resource   
 php artisan make:model --migration --controller ProductImage --resource  
  <!-- sendemail attactment pdf -->
+
+ php artisan make:model --migration --controller Product
+
+
+ php artisan make:model --migration --controller ProductColor --resource  
+ php artisan make:model --migration --controller ProductSize --resource  
+ php artisan make:model --migration --controller Product --resource  
+
+ php artisan make:model --migration --controller DenganSopir
+ php artisan make:model --migration --controller TanpaSopir
+ php artisan make:model --migration --controller DenganSopirCart
+ php artisan make:model --migration --controller TanpaSopirCart
+
+ php artisan make:model --migration --controller DenganSopirOrder
+ php artisan make:model --migration --controller TanpaSopirOrder
+ php artisan make:model --migration --controller DenganSopirPayment
+ php artisan make:model --migration --controller TanpaSopirPayment
 
 public function sendmail(Request $request){
         $data["email"]=$request->get("email");
@@ -648,3 +668,4 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 <!-- Whatsapp -->
 <i class="fab fa-whatsapp fa-2x" style="color: #25d366;"></i>
+https://themewagon.com/themes/free-bootstrap-4-html5-news-portal-website-template-aznews/

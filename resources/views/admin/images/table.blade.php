@@ -32,14 +32,7 @@
           <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
             <ul class="nav flex-column">
-                <li class="nav-item">
-                  <a class="nav-link active" href="index.html">
-                        <i class="zmdi zmdi-widgets"></i>
-                        {{ Auth::guard('admin')->user()->name }}
-                      </a>
-                </li>
-
-                <li class="nav-item">
+            <li class="nav-item">
                   <a class="nav-link active" href="index.html">
                         <i class="zmdi zmdi-widgets"></i>
                         Dashboard <span class="sr-only">(current)</span>
@@ -53,11 +46,19 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('aorder.index') }}">
+                  <a class="nav-link" href="">
                     <i class="zmdi zmdi-file-text"></i>
                         Orders
                       </a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="zmdi zmdi-file-text"></i>
+                        Orders
+                      </a>
+                </li>
+
                 <li class="nav-item">
                       <a class="nav-link" href="{{ route('member') }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
@@ -95,7 +96,14 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="{{ route('product.index') }}">
+                      <a class="nav-link" href="">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Product
+                      </a>
+                </li>
+
+                <li class="nav-item">
+                      <a class="nav-link" href="">
                         <i class="zmdi zmdi-shopping-cart"></i>
                         Product
                       </a>

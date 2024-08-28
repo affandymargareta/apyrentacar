@@ -18,10 +18,10 @@ class SellerRegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
-    {
-        return view('auth.seller-register');
-    }
+    // public function create(): View
+    // {
+    //     return view('auth.seller-register');
+    // }
 
     /**
      * Handle an incoming registration request.

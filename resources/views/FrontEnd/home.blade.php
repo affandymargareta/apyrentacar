@@ -56,59 +56,16 @@
                 <div class="row">
                   <div class="col-lg-12 request-form ftco-animate bg-primary">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                      <!-- <li class="nav-item" role="presentation">
+                      <li class="nav-item" role="presentation">
                         <button class="nav-link rounded-pill" id="pills-home-tab" data-toggle="pill" data-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Tanpa Sopir</button>
-                      </li> -->
-                      <!-- <li class="nav-item" role="presentation">
+                      </li>
+                      <li class="nav-item" role="presentation">
                         <button class="nav-link active rounded-pill" id="pills-profile-tab" data-toggle="pill" data-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Dengan Sopir</button>
-                      </li> -->
+                      </li>
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                       <div class="tab-pane fade " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                      <form method="post" action="" enctype="multipart/form-data">
-                        @method('POST')
-                        @csrf
-                            <h2>Make your trip</h2>
-                            <div class="form-row">
-                              <div class="form-group col-md-2">
-                                <label class="form-control">Lokasi Anda / </label>
-                                <select style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                                  <option>Jakarta Selatan</option>
-                                  <option>Jakarta Timur</option>
-                                  <option>Jakarta Barat</option>
-                                  <option>Jakarta Pusat</option>
-                                  <option>Jakarta Utara</option>
-                                </select>
-                                <!-- <label class="form-control">Lokasi Rental</label>
-                                <input type="text" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control"> -->
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label class="form-control">Tanggal Mulai / Start Date</label>
-                                <input type="date" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label class="form-control">Waktu Mulai</label>
-                                <input type="time" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label class="form-control">Tanggal Selesai</label>
-                                <input type="date" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label class="form-control">Waktu Selesai</label>
-                                <input type="time" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                              </div>
-                              <div class="form-group col-md-2">
-                                <label class="form-control"></label>
-                                <a href="" class="btn btn-warning"><i class="fa fa-search"></i></a>
-                                <!-- <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i></button> -->
-                              </div>
-                            </div>
-                        </form>
-
-                      </div>
-                      <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                      <form method="get" action="{{ route('searching') }}" enctype="multipart/form-data">
+                      <form method="get" action="{{ route('searching1') }}" enctype="multipart/form-data">
                           <!-- @method('GET') -->
 
                             <h2>Make your trip</h2>
@@ -117,8 +74,56 @@
                                 <label class="form-control">Lokasi Anda / Your location</label>
                                 <select name="wilayah" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                                     <option value="">Pilih</option>
-                                    @foreach ($province as $row)
-                                    <option value="{{ $row->city_name }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->city_name }}</option>
+                                    @foreach ($province as $rows)
+                                     @foreach ($rows->city as $row)
+                                      <option value="{{ $row->city_name }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->city_name }}</option>
+                                      @endforeach
+
+                                    @endforeach
+                                </select>                                
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label class="form-control">Tanggal Mulai / Start Date</label>
+                                <input type="date" name="mulai" value="{{ old('mulai') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                              </div>
+                              
+                              <div class="form-group col-md-2">
+                                <label class="form-control">Waktu Jemput & Ambil / Pick Up Times</label>
+                                <input type="time" name="jam_mulai" value="{{ old('jam_mulai') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label class="form-control">Tanggal Selesai / Start Date</label>
+                                <input type="date" name="akhir" value="{{ old('akhir') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                              </div>
+                              
+                              <div class="form-group col-md-2">
+                                <label class="form-control">Waktu Selesai / Pick Up Times</label>
+                                <input type="time" name="jam_akhir" value="{{ old('jam_akhir') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                              </div>
+                              <div class="form-group col-md-2">
+                                <label class="form-control"></label>
+                                <!-- <a href="" class="btn btn-warning"><i class="fa fa-search"></i></a> -->
+                                <button type="submit" class="btn btn-warning"><i class="fa fa-search"></i></button>
+                              </div>
+                            </div>
+                        </form>
+
+                      </div>
+                      <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+                      <form method="get" action="{{ route('searching2') }}" enctype="multipart/form-data">
+                          <!-- @method('GET') -->
+
+                            <h2>Make your trip</h2>
+                            <div class="form-row">
+                              <div class="form-group col-md-2">
+                                <label class="form-control">Lokasi Anda / Your location</label>
+                                <select name="wilayah" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                    <option value="">Pilih</option>
+                                    @foreach ($province as $rows)
+                                     @foreach ($rows->city as $row)
+                                      <option value="{{ $row->city_name }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->city_name }}</option>
+                                      @endforeach
+
                                     @endforeach
                                 </select>                                
                               </div>
@@ -185,48 +190,6 @@
           </div>
         </section>
 
-
-    <section class="ftco-section ftco-no-pt">
-    	<div class="container">
-    		<div class="row justify-content-center">
-          <div class="col-md-12 heading-section text-center ftco-animate mb-5">
-          	<span class="subheading mb-2 mt-10">What we offer</span>
-            <h2 class="mb-2 mt-2" style="color : #000;">Feeatured Vehicles</h2>
-          </div>
-        </div>
-    		<div class="row">
-    			<div class="col-md-12">
-    				<div class="carousel-car owl-carousel">
-            @foreach ($product as $getData)
-
-    					<div class="item">
-    						<div class="car-wrap rounded ftco-animate">
-		    					<div class="img rounded d-flex align-items-end" style="background-image: url({{ asset($getData->productImages->image) }});">
-		    					</div>
-		    					<div class="text"> 
-		    						<h2 class="mb-0"><a href="#">{{ $getData->productName->name }}</a></h2>
-		    						<div class="d-flex mb-3 mt-3">
-			    						<span class="cat">Price</span>
-			    						<p class="price ml-auto">Rp {{ $getData ->price }}<span>/day</span></p>
-		    						</div>
-                    <div class="d-flex" style="margin-bottom: -15px;">
-                      <p class="price1 ml-2"><span class="flaticon-pistons mr-2"></span> {{ $getData ->jenis }}</p>
-		    						</div>
-		    						<div class="d-flex mb-2">
-                      <p class="price1 ml-2"><span class="flaticon-car-seat mr-2"></span> {{ $getData ->kursi }} Seat</p>
-			    						<p class="price1 ml-2"><span class="flaticon-backpack mr-2"></span> {{ $getData ->bagasi }} Bag</p>
-		    						</div>
-		    						<p class="d-flex mb-0 d-block"><a href="pick-locations.html" class="btn btn-primary py-2 mr-1">Book now</a> <a href="product-detail.html" class="btn btn-secondary py-2 ml-1">Details</a></p>
-		    					</div>
-		    				</div>
-    					</div>
-              @endforeach
-
-    				</div>
-    			</div>
-    		</div>
-    	</div>
-    </section>
 
     <section class="ftco-section ftco-about">
 			<div class="container">
@@ -403,10 +366,11 @@
               <div class="text pt-4">
               	<div class="meta mb-3">
                   <div><a href="#">{{ $getData->created_at }}</a></div>
-                  <div><a href="#">Admin</a></div>
-                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div>
+                  <!-- <div><a href="#">Admin</a></div>
+                  <div><a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a></div> -->
                 </div>
-                <h3 class="heading mt-2"><a href="{{ route('blog.show', $getData->id) }}">{{ $getData->name }}</a></h3>
+                <h5 class="heading mt-2"><a href="{{ route('blog.show', $getData->id) }}">{{ $getData->name }}</a></h5>
+                <h5 class="heading mt-2"><a href="{{ route('blog.show', $getData->id) }}">{{ $getData->description }}</a></h5>
                 <p><a href="{{ route('blog.show', $getData->id) }}" class="btn btn-primary">Read more</a></p>
               </div>
             </div>

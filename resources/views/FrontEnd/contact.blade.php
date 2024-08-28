@@ -11,7 +11,7 @@
 
     <!-- END nav -->
     
-    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/bg_3.jpg') }}');" data-stellar-background-ratio="0.5">
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('{{ asset('images/innova2019.png') }}');" data-stellar-background-ratio="0.5">
       <div class="overlay"></div>
       <div class="container">
         <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
@@ -43,7 +43,8 @@
 			          	<div class="icon mr-3">
 			          		<span class="icon-mobile-phone"></span>
 			          	</div>
-			            <p><span>Phone:</span> <a href="tel://1234567920">(021) 83792927</a></p>
+			            <p><span>Phone:</span> <a href="tel://1234567920">Telp: (021)83792927, (021) 8354565
+                  Wa: 08111047992</a></p>
 			          </div>
 		          </div>
 		          <div class="col-md-12">

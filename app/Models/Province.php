@@ -10,13 +10,18 @@ class Province extends Model
     use HasFactory;
     protected $table = "provinces";
 
-    public function products()
+    public function dengansopirs()
     {
-        return $this->hasMany(Product::class, 'wilayah');
+        return $this->hasMany(DenganSopir::class, 'wilayah');
     }
 
     public function provincePrice()
     {
         return $this->hasOne(CityPrice::class, 'province_id');
+    }
+
+    public function city()
+    {
+        return $this->hasMany(City::class);
     }
 }

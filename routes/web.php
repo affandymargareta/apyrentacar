@@ -4,9 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FrontEnd\HomeController;
-use App\Http\Controllers\FrontEnd\CartController;
+use App\Http\Controllers\FrontEnd\DenganSopirCartController;
+use App\Http\Controllers\FrontEnd\TanpaSopirCartController;
+use App\Http\Controllers\FrontEnd\TanpaSopirOrderController;
+use App\Http\Controllers\FrontEnd\DenganSopirOrderController;
+use App\Http\Controllers\FrontEnd\PaymentController;
+
 use App\Http\Controllers\Admin\AdminDashboardController;
-use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\CityController;
@@ -22,11 +26,11 @@ use App\Http\Controllers\Admin\ProductCarController;
 use App\Http\Controllers\Admin\SellerPaymentController;
 
 
-use App\Http\Controllers\FrontEnd\OrderController;
-use App\Http\Controllers\FrontEnd\PaymentController;
 use App\Http\Controllers\Seller\SellerDashboardController;
-use App\Http\Controllers\Seller\SellerProductController;
-use App\Http\Controllers\Seller\SellerOrderController;
+use App\Http\Controllers\Seller\SellerDenganSopirController;
+use App\Http\Controllers\Seller\SellerTanpaSopirController;
+use App\Http\Controllers\Seller\SellerOrderV1Controller;
+use App\Http\Controllers\Seller\SellerOrderV2Controller;
 
 
 use App\Http\Controllers\Auth\UserProfileController;
@@ -53,10 +57,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::post('/cartstore', [CartController::class, 'store'])->name('cartstore');
-    Route::get('/booking/{id}', [HomeController::class, 'Booking'])->name('booking');
-    Route::put('/cartupdate/{id}', [CartController::class, 'update'])->name('cartupdate');
-    Route::post('/orders', [OrderController::class, 'store'])->name('orders.store');
     Route::get('/user/account/{id}', [UserProfileController::class, 'UserAccount'])->name('user.account');
     Route::put('/userupdate/{id}', [UserProfileController::class, 'update'])->name('userupdate');
     Route::get('/user/dashboard', [HomeController::class, 'UserCar'])->name('user.dashboard');
@@ -77,7 +77,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('customers', [AdminDashboardController::class, 'User'])->name('customers');
     
     
-    Route::resource('product', ProductController::class);
     Route::resource('banner', BannerController::class);
     Route::resource('blog', BlogController::class);
     Route::resource('city', CityController::class);
@@ -111,17 +110,33 @@ Route::middleware('auth:admin')->group(function () {
     */
     
     
-    Route::post('userinvoice', [HomeController::class, 'UserInvoice'])->name('userinvoice');
-    
+    Route::post('userinvoice1', [HomeController::class, 'UserInvoice1'])->name('userinvoice1');
+    Route::post('userinvoice2', [HomeController::class, 'UserInvoice2'])->name('userinvoice2');
+    Route::post('userinvoice3', [HomeController::class, 'UserInvoice3'])->name('userinvoice3');
+    Route::post('userinvoice4', [HomeController::class, 'UserInvoice4'])->name('userinvoice4');
+
+
+
+
     Route::get('/users/invoice/detail/{id}', [HomeController::class, 'InvoiceDetail'])->name('users.invoice');
     
     /////
-    Route::get('search', [HomeController::class, 'CategorySearch'])->name('searching');
-    Route::get('/cars/detail/{id}', [HomeController::class, 'CarDetail'])->name('cardetail');
-    
-    
-    
-    
+    Route::get('searchv1', [HomeController::class, 'CategorySearch1'])->name('searching1');
+    Route::get('searchv2', [HomeController::class, 'CategorySearch2'])->name('searching2');
+
+    Route::get('/cars/v1/detail/{id}', [HomeController::class, 'CarDetail1'])->name('cardetail1');
+    Route::get('/cars/v2/detail/{id}', [HomeController::class, 'CarDetail2'])->name('cardetail2');
+
+    Route::post('/cartstore1', [TanpaSopirCartController::class, 'store'])->name('cartstore1');
+    Route::post('/cartstore2', [DenganSopirCartController::class, 'store'])->name('cartstore2');
+    Route::put('/cartupdate1/{id}', [TanpaSopirCartController::class, 'update'])->name('cartupdate1');
+    Route::put('/cartupdate2/{id}', [DenganSopirCartController::class, 'update'])->name('cartupdate2');
+    Route::get('/booking1/{id}', [HomeController::class, 'Booking1'])->name('booking1');
+    Route::get('/booking2/{id}', [HomeController::class, 'Booking2'])->name('booking2');
+
+    Route::post('/orders1', [TanpaSopirOrderController::class, 'store'])->name('orders1.store');
+    Route::post('/orders2', [DenganSopirOrderController::class, 'store'])->name('orders2.store');
+
     
     /*
     |--------------------------------------------------------------------------
@@ -174,12 +189,21 @@ Route::middleware('auth:admin')->group(function () {
     Route::middleware('auth:seller')->group(function () {
     
     Route::get('/mdashboard', [SellerDashboardController::class, 'Dashboard'])->name('mdashboard');
-    Route::resource('productm', SellerProductController::class);
-    
-    Route::get('/morder', [SellerOrderController::class, 'index'])->name('morder.index');
-    Route::put('/morderpdate/{id}', [SellerOrderController::class, 'update'])->name('morderpdate.update');
-    Route::get('/morder/{id}', [SellerOrderController::class, 'edit'])->name('morder.edit');
-    Route::get('/morder/detail/{id}', [SellerOrderController::class, 'show'])->name('morder.show');
+    Route::resource('dengansopirm', SellerDenganSopirController::class);
+    Route::resource('tanpasopirm', SellerTanpaSopirController::class);
+
+    Route::get('/mtanpasopir', [SellerOrderV1Controller::class, 'mtanpasopir'])->name('mtanpasopir');
+    Route::put('/mtanpasopirpdate/{id}', [SellerOrderV1Controller::class, 'update'])->name('mtanpasopirpdate.update');
+    Route::get('/mtanpasopir/{id}', [SellerOrderV1Controller::class, 'edit'])->name('mtanpasopir.edit');
+    Route::get('/mtanpasopir/detail/{id}', [SellerOrderV1Controller::class, 'show'])->name('mtanpasopir.show');
+
+
+    Route::get('/mdengansopir', [SellerOrderV2Controller::class, 'mdengansopir'])->name('mdengansopir');
+    Route::put('/mdengansopirpdate/{id}', [SellerOrderV2Controller::class, 'update'])->name('mdengansopirupdate.update');
+    Route::get('/mdengansopir/{id}', [SellerOrderV2Controller::class, 'edit'])->name('mdengansopir.edit');
+    Route::get('/mdengansopir/detail/{id}', [SellerOrderV2Controller::class, 'show'])->name('mdengansopir.show');
+
+
     
     });
     

@@ -11,9 +11,9 @@
 	          <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home</a></li>
 	          <li class="nav-item"><a style="color:#000;" href="{{ route('companys.profile') }}" class="nav-link">Company</a></li>
             <li class="nav-item"><a style="color:#000;" href="{{ route('article') }}" class="nav-link">Article</a></li>
-	          <li class="nav-item"><a style="color:#000;" href="{{ route('services') }}" class="nav-link">Services</a></li>
+	          <!-- <li class="nav-item"><a style="color:#000;" href="" class="nav-link">Services</a></li> -->
 	          <li class="nav-item"><a style="color:#000;" href="{{ route('contacts.company') }}" class="nav-link">Contact</a></li>
-            <li class="nav-item"><a style="color:#000;" href="whatsapp://send?text=Hello&phone=+62 811-1047-992" class="nav-link"><span class="icon-whatsapp" style="color:green; font-size: 24px; padding-right: 5px;"></span>Contact Us</a></li>
+            <li class="nav-item"><a style="color:#000;" href="whatsapp://send?text=Hello&phone=+62 811-1047-992" class="nav-link"><span class="icon-whatsapp" style="color:green; font-size: 24px; padding-right: 5px;"></span>What's App</a></li>
             @if (Route::has('login'))
             @auth
             <li class="nav-item">

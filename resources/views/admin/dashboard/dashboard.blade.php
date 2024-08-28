@@ -53,11 +53,19 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('aorder.index') }}">
+                  <a class="nav-link" href="">
                     <i class="zmdi zmdi-file-text"></i>
                         Orders
                       </a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="zmdi zmdi-file-text"></i>
+                        Orders
+                      </a>
+                </li>
+
                 <li class="nav-item">
                       <a class="nav-link" href="{{ route('member') }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
@@ -95,7 +103,14 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="{{ route('product.index') }}">
+                      <a class="nav-link" href="">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Product
+                      </a>
+                </li>
+
+                <li class="nav-item">
+                      <a class="nav-link" href="">
                         <i class="zmdi zmdi-shopping-cart"></i>
                         Product
                       </a>
@@ -201,7 +216,7 @@
                   <div class="card blue">
                     <div class="title">all order</div>
                     <i class="zmdi zmdi-upload"></i>
-                    <div class="value">{{ $order }}</div>
+                    <div class="value">{{ $ordercount }}</div>
                     <div class="stat"><b>13</b>% increase</div>
                   </div>
                 </div>
@@ -217,7 +232,7 @@
                   <div class="card orange">
                     <div class="title">total budget</div>
                     <i class="zmdi zmdi-download"></i>
-                    <div class="value">{{ formatUang($ordersum) }}</div>
+                    <div class="value">{{ formatUang($ordertotal) }}</div>
                     <div class="stat"><b>13</b>% decrease</div>
                   </div>
                 </div>

@@ -27,6 +27,7 @@ class Order extends Model
 	// 	'kembali_id',
 	// 	'lokasi_kembali',
 	// 	'mulai',
+   	// 	'akhir', 
 	// 	'durasi',
 	// 	'jam_mulai',
 	// 	'jam_akhir',
@@ -198,8 +199,12 @@ class Order extends Model
         return $this->belongsTo(Seller::class, 'product_id');
     }
 
-	public function product()
+    public function tanpasopir()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(TanpaSopir::class, 'product_id');
+    }
+    public function dengansopir()
+    {
+        return $this->belongsTo(DenganSopir::class, 'product_id');
     }
 }

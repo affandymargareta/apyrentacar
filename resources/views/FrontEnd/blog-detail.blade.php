@@ -25,7 +25,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 ftco-animate">
-            <h2 class="mb-3">{{ $blog->name }}</h2>
+            <h5 class="mb-3">{{ $blog->name }}</h5>
             <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
             <p> -->
               <img src="{{ asset($blog->image) }}" alt="" class="img-fluid">
@@ -49,7 +49,7 @@
               </div>
             </div> -->
             
-            <div class="about-author d-flex p-4 bg-light">
+            <!-- <div class="about-author d-flex p-4 bg-light">
               <div class="bio mr-5">
                 <img src="{{ asset('images/person_1.jpg') }}" alt="Image placeholder" class="img-fluid mb-4">
               </div>
@@ -57,10 +57,10 @@
                 <h3>George Washington</h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
               </div>
-            </div>
+            </div> -->
 
 
-            <div class="pt-5 mt-5">
+            <!-- <div class="pt-5 mt-5">
               <h3 class="mb-5">6 Comments</h3>
               <ul class="comment-list">
                 <li class="comment">
@@ -71,9 +71,9 @@
                     <h3>John Doe</h3>
                     <div class="meta">Oct. 29, 2019 at 1:21pm</div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur quidem laborum necessitatibus, ipsam impedit vitae autem, eum officia, fugiat saepe enim sapiente iste iure! Quam voluptas earum impedit necessitatibus, nihil?</p>
-                    <!-- <p><a href="#" class="reply">Reply</a></p> -->
+                    <-- <p><a href="#" class="reply">Reply</a></p> --
                   </div>
-                </li>
+                </li> -->
 
                 <!-- <li class="comment">
                   <div class="vcard bio">
@@ -141,10 +141,10 @@
                     <p><a href="#" class="reply">Reply</a></p>
                   </div>
                 </li> -->
-              </ul>
+              <!-- </ul> -->
               <!-- END comment-list -->
               
-              <div class="comment-form-wrap pt-5">
+              <!-- <div class="comment-form-wrap pt-5">
                 <h3 class="mb-5">Leave a comment</h3>
                 <form action="#" class="p-5 bg-light">
                   <div class="form-group">
@@ -170,9 +170,10 @@
 
                 </form>
               </div>
-            </div>
+            </div> -->
 
-          </div> <!-- .col-md-8 -->
+          </div> 
+          <!-- .col-md-8 -->
           <div class="col-md-4 sidebar ftco-animate">
             <div class="sidebar-box">
               <form action="#" class="search-form">
@@ -200,11 +201,11 @@
               <div class="block-21 mb-4 d-flex">
                 <a class="blog-img mr-4" style="background-image: url({{ asset($getData->image) }});"></a>
                 <div class="text">
-                  <h3 class="heading"><a href="#">{{ $getData->name }}</a></h3>
+                  <h5 class="heading"><a href="#">{{ $getData->name }}</a></h5>
                   <div class="meta">
                     <div><a href="#"><span class="icon-calendar"></span>{{ $getData->created_at }}</a></div>
-                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
-                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                    <!-- <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> 19</a></div> -->
                   </div>
                 </div>
               </div>

@@ -1,34 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\FrontEnd;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Order;
-use App\Models\Payment;
-use Carbon\Carbon;
+use App\Models\Payment; 
 use App\Models\Seller;
-use App\Models\Product;
-use App\Models\User;
-use App\Models\CityPrice;
-use App\Models\City;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
-
-/**
- * PaymentController
- *
- * PHP version 8
- *
- * @category PaymentController
- * @package  PaymentController
- * @author   Sugiarto <AffandyMargareta@gmail.com>
- * @license  https://opensource.org/licenses/MIT MIT License
- * @link     http://localhost/
- */
 class PaymentController extends Controller
 {
 	/**
@@ -53,7 +34,9 @@ class PaymentController extends Controller
 		$statusCode = null;
 
 		$paymentNotification = new \Midtrans\Notification();
-		$order = Order::where('invoice', $paymentNotification->order_id)->firstOrFail();
+		// TODO set payment status in merchant's database to 'Denied'
+        $order = Order::where('invoice', $paymentNotification->order_id)->firstOrFail();
+
 
 		if ($order->isPaid()) {
 			return response(['message' => 'The order has been paid before'], 422);
@@ -103,6 +86,7 @@ class PaymentController extends Controller
  
 		$paymentParams = [
 			'order_id' => $order->id,
+            'fitur' => $order->fitur,
 			'number' => Payment::generateCode(),
 			'amount' => $paymentNotification->gross_amount,
 			'method' => 'midtrans',
@@ -118,211 +102,119 @@ class PaymentController extends Controller
 		];
 		$payment = Payment::create($paymentParams);
 
-		if ($paymentStatus && $payment) {
-			\DB::transaction(
-				function () use ($order, $payment) {
-					if (in_array($payment->status, [Payment::SUCCESS, Payment::SETTLEMENT])) {
-						$order->payment_status = Order::PAID;
-						$order->save();
-					}
-				}
-			);
-		}
+        if ($paymentStatus && $payment) {
+            \DB::transaction(function () use ($order, $payment) {
+                
+                if (in_array($payment->status, [Payment::SUCCESS, Payment::SETTLEMENT])) {
+                    $order->payment_status = Order::PAID;
+                    $order->save();
+                }
 
-		$message = 'Payment status is : '. $paymentStatus;
+                $this->_OrderEmail($order);
+            });
+        }
 
-		$response = [
-			'code' => 200,
-			'message' => $message,
-		];
-
-		return response($response, 200);
+        return response()->json(['code' => 200, 'message' => 'Payment status is : '. $paymentStatus], 200);
 	}
 
-	/**
-	 * Show completed payment status
-	 *
-	 * @param Request $request payment data
-	 *
-	 * @return void
-	 */
-	public function completed(Request $request)
-	{
-		
-		$code = $request->query('order_id');
-		
-		$order = Order::where('invoice', $code)->firstOrFail();
+    /**
+     * Show completed payment status
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function completed(Request $request)
+    {
+        $code = $request->query('order_id');
 
-		try {
-			$this->_OrderEmail($order);
-			return redirect(route('user.dashboard'))->with(['success' => 'Transaksi berhasil!']);
-		} catch (\Exception $e) {
-            //JIKA TERJADI ERROR, MAKA ROLLBACK DATANYA
-            dd($e);
-            return redirect()->back()->with(['error' => $e->getMessage()]);
-        }
-
-	}
-
-	/**
-	 * Show unfinish payment page
-	 *
-	 * @param Request $request payment data
-	 *
-	 * @return void
-	 */
-	public function unfinish(Request $request)
-	{
-		$code = $request->query('order_id');
-
-		$order = Order::where('invoice', $code)->firstOrFail();
-
-		\Session::flash('error', "Sorry, we couldn't process your payment.");
-
-		return redirect(route('user.dashboard'))->with(['error' => "Sorry, we couldn't process your payment."]);
-
-	}
-
-	/**
-	 * Show failed payment page
-	 *
-	 * @param Request $request payment data
-	 *
-	 * @return void
-	 */
-	public function failed(Request $request)
-	{
-		$code = $request->query('order_id');
-
-		$order = Order::where('invoice', $code)->firstOrFail();
-
-		\Session::flash('error', "Sorry, we couldn't process your payment.");
-
-		return redirect(route('user.dashboard'))->with(['error' => "Sorry, we couldn't process your payment."]);
-
-	}
-
-	/**
-	 * Save order items
-	 *
-	 * @param Order $order order object
-	 *
-	 * @return void
-	 */
-
-     private function _OrderEmail($order)
-     {
-
-        $orderID = Order::where('id', $order->id)->orderBy('created_at', 'DESC')->firstOrFail();
-        $user = User::where('id', $orderID->user_id)->first();
-        $seller = Seller::where('id', $orderID->seller_id)->first();
-        $product = Product::where('id', $orderID->product_id)->first();
-        $jemputCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_jemput)->first();
-        $kembaliCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_kembali)->first();
-
-        if(!empty($orderID->lokasi_jemput)){
-            $jemputCitys = $jemputCity->city_name;
-        }else {
-            $jemputCitys = '';
-        }
-        if(!empty($orderID->lokasi_kembali)){
-            $kembaliCitys = $kembaliCity->city_name;
-        }else {
-            $kembaliCitys = '';
-        }
-
-        $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
-
-        if($kembalibanding->province_id != $orderID->jemput_id) {
-			$jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();
-            $jemputPrice = $jemput->price ?? '';
-            $jemputzona = $jemput->zona ?? '';
-        } else {
-            $jemputPrice = 0;
-            $jemputzona = '';
-        }
-
-        if(!empty($orderID->kembali_id)){
-
-            if($kembalibanding->province_id != $orderID->kembali_id) {
-				$Kembali = CityPrice::where('province_id', $orderID->kembali_id)->where('product_id', $product->name)->first();
-                $kembaliPrice = $Kembali->price ?? '';
-                $Kembalizona = $Kembali->zona ?? '';
-            } else {
-                $kembaliPrice = 0;
-                $Kembalizona = '';
-            }
-
-        }else {
-            $kembaliPrice = 0;
-            $Kembalizona = '';
-        }
-
+        $order = Order::where('invoice', $code)->firstOrFail();
+        $this->_OrderEmail($order);
         
-        if(!empty($orderID->addon_price)){
-            $addon_price = $orderID->addon_price;
-        }else {
-            $addon_price = 0;
-        }
-		if(!empty($orderID->addon_hari)){
-            $addon_hari = $orderID->addon_hari;
-        }else {
-            $addon_hari = 0;
-        }
+        return redirect()->route('home')->with('error', 'An error occurred while processing your transaction.');
+    }
 
-        // dd($orderID, $kembalibanding, $kembaliPrice, $Kembalizona);
 
-        // dd($kembaliPrice, $jemputPrice);
-        $totalHari = $orderID->durasi -1;
-        $durasi = date_create($orderID->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
 
-        $data["user_id"]= $user->name;
+    /**
+     * Show unfinish payment page
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function unfinish(Request $request)
+    {
+        $code = $request->query('order_id');
+        $order = Order::where('invoice', $code)->firstOrFail();
+        Log::warning('Unfinished payment for order ID: ' . $order->id);
+
+        return redirect(route('user.dashboard'))->with('error', "Sorry, we couldn't process your payment.");
+    }
+
+    /**
+     * Show failed payment page
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function failed(Request $request)
+    {
+        $code = $request->query('order_id');
+        $order = Order::where('invoice', $code)->firstOrFail();
+        Log::warning('Failed payment for order ID: ' . $order->id);
+
+        return redirect(route('user.dashboard'))->with('error', "Sorry, we couldn't process your payment.");
+    }
+
+    /**
+     * Send order email with invoice PDF
+     *
+     * @param Order $order
+     * @return void
+     */
+	private function _OrderEmail($order)
+    {
+        // Ambil data order dan relasi
+        $orderID = Order::where('id', $order->id)->orderBy('created_at', 'DESC')->firstOrFail();
+        $seller = Seller::where('id', $orderID->seller_id)->first();
+        // Data untuk view dan PDF
         $data["seller_name"]= $seller->name;
         $data["seller_telpon"]= $seller->phone;
-		$data["seller_email"]= $seller->email;
+        $data["seller_email"]= $seller->email;
         $data["invoice"]= $orderID->invoice;
         $data["payment_status"]= $orderID->payment_status;
-        $data["wilayah"]= $orderID->wilayah;
-        $data["jemput_id"]= $orderID->jemput_id;
-        $data["lokasi_jemput"]= $jemputCitys;
-        $data["jemputPrice"]= $jemputPrice;
-        $data["jemputzona"]= $jemputzona;
-        $data["kembali_id"]= $orderID->kembali_id;
-        $data["lokasi_kembali"]= $kembaliCitys;
-        $data["kembaliPrice"]= $kembaliPrice;
-        $data["Kembalizona"]= $Kembalizona;
-        $data["mulai"]= $orderID->mulai;
-        $data["durasi"]= $durasi;
-        $data["hari"]= $orderID->durasi;
-        $data["jam_mulai"]= $orderID->jam_mulai;
-        $data["jam_akhir"]= $orderID->jam_akhir;
-        $data["product_name"]= $product->productName->name;
-        $data["product"]= $product->wilayah;
-        $data["product_price"]= $product->price;
         $data["customer_name"]= $orderID->customer_name;
         $data["customer_telpon"]= $orderID->customer_telpon;
         $data["customer_email"]= $orderID->customer_email;
-        $data["addon_price"]= $addon_price;
-        $data["addon_hari"]= $addon_hari;
-        $data["price"]= $orderID->price;
-        $data["order_id"]= $orderID->id;
+        $data["fitur"]= $orderID->fitur;
+        $data["opration1"]= "carengibran@gmail.com";
+        $data["opration2"]= "carengibran@gmail.com";
+        $data["v1"]= "v1";
 
-
-        $pdf = PDF::loadView('FrontEnd.seller-invoice', $data)
-        ->setPaper('a4', 'portrait')->setWarnings(false)
-        ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
-        
-        // return $pdf->stream(rand(1,50). '.' . 'pdf');
-
-        Mail::send('FrontEnd.seller-email', $data, function($message)use($data, $pdf) {
-
-            $message->to($data["seller_email"], $data["seller_email"])
-
-                    ->subject($data["product_name"])
-
-                    ->attachData($pdf->output(),'voucher'. '.' . 'pdf');
-
+        Mail::send('FrontEnd.seller-email-v', $data, function ($message) use ($data, $pdf) {
+            $message->to($data['seller_email'])
+                ->subject($data['product_name'])
+                ->attachData($pdf->output(), 'voucher.pdf', ['mime' => 'application/pdf'])
+                ->cc([$data['opration1'], $data['opration2']]);
         });
+    }
 
-     }
+    // ... (rest of the methods)
+
+
+    /**
+     * Initialize the payment gateway configuration
+     *
+     * @return void
+     */
+    protected function initPaymentGateway()
+	{
+		// Set your Merchant Server Key
+		\Midtrans\Config::$serverKey = config('services.midtrans.serverKey');
+		// Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+		\Midtrans\Config::$isProduction = config('services.midtrans.isProduction');
+		// Set sanitization on (default)
+		\Midtrans\Config::$isSanitized = config('services.midtrans.isSanitized');
+		// Set 3DS transaction for credit card to true
+		\Midtrans\Config::$is3ds = config('services.midtrans.is3ds');
+	}
 }

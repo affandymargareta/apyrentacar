@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Seller;
 use App\Models\User;
 use App\Models\Province;
+use App\Models\Order;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -16,20 +17,23 @@ class AdminDashboardController extends Controller
     public function Dashboard()
     {   
         
-        $admin = Admin::where('id', Auth::guard('admin')->id())->orderBy('created_at', 'DESC')->first();
+        $admin = Admin::orderBy('created_at', 'DESC')->first();
 
         $seller = DB::table('sellers')->count();
         $user = DB::table('users')->count();
-        $order = DB::table('orders')->count();
-        $ordersum =  DB::table('orders')->where('payment_status', 'paid')->sum('price');
+        $ordercount = DB::table('orders')->where(['payment_status' => 'paid'])->count();
+        $order = Order::orderBy('created_at', 'DESC')->where(['payment_status' => 'paid'])->get();
+        $ordertotal = collect($order)->sum(function ($q) {
+            return $q['price']; //SUBTOTAL TERDIRI DARI QTY * PRICE
+        });
+
 
         return view('admin.dashboard.dashboard')->with([
             'admin' => $admin,
             'seller' => $seller,
             'user' => $user,
-            'order' => $order,
-            'ordersum' => $ordersum,
-
+            'ordercount' => $ordercount,
+            'ordertotal' => $ordertotal,
         ]);
 
     }

@@ -53,11 +53,19 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('aorder.index') }}">
+                  <a class="nav-link" href="">
                     <i class="zmdi zmdi-file-text"></i>
                         Orders
                       </a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="zmdi zmdi-file-text"></i>
+                        Orders
+                      </a>
+                </li>
+
                 <li class="nav-item">
                       <a class="nav-link" href="{{ route('member') }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
@@ -95,7 +103,14 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="{{ route('product.index') }}">
+                      <a class="nav-link" href="">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Product
+                      </a>
+                </li>
+
+                <li class="nav-item">
+                      <a class="nav-link" href="">
                         <i class="zmdi zmdi-shopping-cart"></i>
                         Product
                       </a>

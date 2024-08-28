@@ -53,11 +53,19 @@
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('aorder.index') }}">
+                  <a class="nav-link" href="">
                     <i class="zmdi zmdi-file-text"></i>
                         Orders
                       </a>
                 </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="">
+                    <i class="zmdi zmdi-file-text"></i>
+                        Orders
+                      </a>
+                </li>
+
                 <li class="nav-item">
                       <a class="nav-link" href="{{ route('member') }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
@@ -95,7 +103,14 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                      <a class="nav-link" href="{{ route('product.index') }}">
+                      <a class="nav-link" href="">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Product
+                      </a>
+                </li>
+
+                <li class="nav-item">
+                      <a class="nav-link" href="">
                         <i class="zmdi zmdi-shopping-cart"></i>
                         Product
                       </a>
@@ -207,7 +222,7 @@
                   <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
-                        <form method="POST" action="{{ route('members.register') }}">
+                        <form method="POST" action="{{ route('mregister.store') }}">
                         @csrf
                       
                         <div class="modal-content">

@@ -100,10 +100,10 @@ Route::middleware('auth:web')->group(function () {
 */
 
 Route::middleware('guest:seller')->group(function () {
-    Route::get('/members/register', [SellerRegisteredUserController::class, 'create'])
-                ->name('members.register');
+    // Route::get('/members/register', [SellerRegisteredUserController::class, 'create'])
+    //             ->name('members.register');
 
-    Route::post('/members/register', [SellerRegisteredUserController::class, 'store']);
+    Route::post('/mregister', [SellerRegisteredUserController::class, 'store'])->name('mregister.store');
 
     Route::get('/members/login', [SellerAuthenticatedSessionController::class, 'create'])
                 ->name('members.login');

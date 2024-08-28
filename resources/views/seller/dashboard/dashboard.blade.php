@@ -46,16 +46,29 @@
                 </li>
                 @if ($seller->suspend > 0)
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('morder.index') }}">
+                  <a class="nav-link" href="{{ route('mdengansopir') }}">
                     <i class="zmdi zmdi-file-text"></i>
-                        Orders
+                        Orders Dengan Supir
+                      </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('mtanpasopir') }}">
+                    <i class="zmdi zmdi-file-text"></i>
+                        Orders Tanpa Supir
                       </a>
                 </li>
                
                 <li class="nav-item">
-                      <a class="nav-link" href="{{ route('productm.index') }}">
+                      <a class="nav-link" href="{{ route('dengansopirm.index') }}">
                         <i class="zmdi zmdi-shopping-cart"></i>
-                        Product
+                        Dengan Sopir
+                      </a>
+                </li>
+                <li class="nav-item">
+                      <a class="nav-link" href="{{ route('tanpasopirm.index') }}">
+                        <i class="zmdi zmdi-shopping-cart"></i>
+                        Tanpa Sopir
                       </a>
                 </li>
                 @endif
@@ -71,7 +84,7 @@
                   <div class="card blue">
                     <div class="title">all order</div>
                     <i class="zmdi zmdi-upload"></i>
-                      <div class="value">{{ $seller->order->where('payment_status', 'paid')->count() }}</div>
+                      <div class="value">{{ $seller->order->where('fitur', 'v1')->where('payment_status', 'paid')->count() + $seller->order->where('fitur', 'v2')->where('payment_status', 'paid')->count() }}</div>
 
                     <!-- <div class="stat"><b>13</b>% increase</div> -->
                   </div>
@@ -88,7 +101,7 @@
                   <div class="card orange">
                     <div class="title">total budget</div>
                     <i class="zmdi zmdi-download"></i>
-                    <div class="value">{{ formatUang($seller->order()->where('payment_status', 'paid')->sum('price') - $subtotal) }}</div>
+                    <div class="value">{{ formatUang($subtotal) }}</div>
                     <!-- <div class="stat"><b>13</b>% decrease</div> -->
                   </div>
                 </div>
@@ -96,7 +109,7 @@
                   <div class="card red">
                     <div class="title">all customers</div>
                     <i class="zmdi zmdi-download"></i>
-                    <div class="value">{{ $seller->order->where('payment_status', 'paid')->count() }}</div>
+                    <div class="value">{{ $seller->order->where('fitur', 'v1')->where('payment_status', 'paid')->count() + $seller->order->where('fitur', 'v2')->where('payment_status', 'paid')->count() }}</div>
                     <!-- <div class="stat"><b>13</b>% decrease</div> -->
                   </div>
                 </div>
