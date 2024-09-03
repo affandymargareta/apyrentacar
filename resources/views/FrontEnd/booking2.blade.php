@@ -41,16 +41,16 @@
 								<li class="list-group-item" style="color : #000;">Kota/Wilayah Rental.</li>
 								<li class="list-group-item" style="color : #000;">{{ $cart->wilayah }}</li>
 								<li class="list-group-item" style="color : #000;">Tanggal Rental.</li>
-								<li class="list-group-item" style="color : #000;">{{ date("D, d F Y", strtotime($cart->mulai)) }},  - {{$durasi}}</li>
+								<li class="list-group-item" style="color : #000;">{{ date("D, d F Y", strtotime($cart->mulai)) }},  - {{ date("D, d F Y", strtotime($cart->akhir)) }}</li>
 								<li class="list-group-item" style="color : #000;">Lokasi Jemput.</li>
-								<li class="list-group-item" style="color : #000;">{{ $jemputCity->city_name  ?? ''  }}.</li>
+								<li class="list-group-item" style="color : #000;">{{ $jemputCity->city_name  ?? ''  }} : {{ $cart->lokasi_jemput_lengkap  ?? ''  }}</li>
 								<li class="list-group-item" style="color : #000;">Durasi Rental</li>
 								<li class="list-group-item" style="color : #000;">{{ $cart->durasi }} Hari.</li>
 								<li class="list-group-item" style="color : #000;">Waktu Jemput.</li>
 								<li class="list-group-item" style="color : #000;">{{ $cart->jam_mulai }}.</li>
 								@if ($cart->lokasi_kembali > 0)
 									<li class="list-group-item" style="color : #000;">Lokasi Kembali.</li>
-									<li class="list-group-item" style="color : #000;">{{ $kembaliCity->city_name  ?? ''  }}.</li>
+									<li class="list-group-item" style="color : #000;">{{ $kembaliCity->city_name  ?? ''  }} : {{ $cart->lokasi_kembali_lengkap  ?? ''  }}</li>
 								@endif
 								
 

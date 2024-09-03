@@ -66,7 +66,7 @@
 					<p style=" margin: 0px 30px; padding-bottom: 15px; line-height: 2; font-size: 15px;">Terima kasih telah memilih Apy Rent A Car sebagai mitra Anda. Pesanan yang Anda dapatkan adalah rental mobil tanpa sopir. Berikut adalah detail pesanan Anda:.
 					</p>
 					<h2 style="margin: 0px 30px; padding-bottom: 25px; line-height: 2; font-size: 15px;">Mohon untuk menghubungi anda 24 jam.</h2>
-					<h2 style="margin: 0px 30px; padding-bottom: 25px; line-height: 2; font-size: 15px;">Payment Status : $payment_status</h2>
+					<h2 style="margin: 0px 30px; padding-bottom: 25px; line-height: 2; font-size: 15px;">Payment Status : {{ $payment_status }}</h2>
 
 					</td>
 				</tr>

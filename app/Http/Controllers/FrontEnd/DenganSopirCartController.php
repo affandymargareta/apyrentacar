@@ -9,6 +9,7 @@ use App\Models\CityPrice;
 use App\Models\DenganSopir;
 use App\Models\Province;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Customer;
 
 class DenganSopirCartController extends Controller
 {
@@ -35,8 +36,10 @@ class DenganSopirCartController extends Controller
             'jemput_id' => 'required',
             'lokasi_jemput' => 'required',
             'mulai' => 'required',
+            'akhir' => 'required',
             'durasi' => 'required',
-            'jam' => 'required',
+            'jam_mulai' => 'required',
+            'jam_akhir' => 'required',
             'product_id' => 'required',
         ]);
 
@@ -104,9 +107,10 @@ class DenganSopirCartController extends Controller
                 'lokasi_kembali' => $lokasi_kembali,
                 'lokasi_kembali_lengkap' => $lokasi_kembali_lengkap,
                 'mulai' => $request->mulai,
+                'akhir' => $request->akhir,
                 'durasi' => $request->durasi,
-                'jam_mulai' => $request->jam,
-                'jam_akhir' => '23:59',
+                'jam_mulai' => $request->jam_mulai,
+                'jam_akhir' => $request->jam_akhir,
                 'product_id' => $product->id,
                 'price' => $total,
             ]);
@@ -152,6 +156,13 @@ class DenganSopirCartController extends Controller
                 'customer_email' => $request->customer_email,
             ]);
         
+            if($cart){
+                $customer = Customer::create([
+                    'customer_name' => $request->customer_name,
+                    'customer_telpon' => $request->customer_telpon,
+                    'customer_email' => $request->customer_email,
+                ]);
+            }
             // dd($cart);
 
 

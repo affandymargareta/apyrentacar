@@ -13,19 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tanpa_sopir_carts', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->text('product_id');
-            $table->text('price');
-            $table->text('biaya_aplikasi')->nullable();
-            $table->text('wilayah');
-            $table->text('mulai');
-            $table->text('akhir');
-            $table->text('durasi');
-            $table->text('jam_mulai');
-            $table->text('jam_akhir');
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('seller_id')->nullable();
+            $table->text('instagram')->nullable();
+            $table->text('facebook')->nullable();
             $table->text('customer_name')->nullable();
             $table->text('customer_telpon')->nullable();
             $table->text('customer_email')->nullable();
@@ -40,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tanpa_sopir_carts');
+        Schema::dropIfExists('customers');
     }
 };

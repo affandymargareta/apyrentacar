@@ -24,6 +24,7 @@ use App\Http\Controllers\Admin\ProductNameController;
 use App\Http\Controllers\Admin\AddOnController;
 use App\Http\Controllers\Admin\ProductCarController;
 use App\Http\Controllers\Admin\SellerPaymentController;
+use App\Http\Controllers\Admin\CustomerController;
 
 
 use App\Http\Controllers\Seller\SellerDashboardController;
@@ -95,7 +96,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('productname', ProductNameController::class);
     Route::resource('productcar', ProductCarController::class);
     Route::resource('sellerpayment', SellerPaymentController::class);
-    
+    Route::resource('acustomer', CustomerController::class);
+
     
     /*
     |--------------------------------------------------------------------------

@@ -54,8 +54,8 @@
 									  <div class="price-rate">
 										  <h3>
 											
-											  <span class="subheading1"><span class="subheading2"></span class=""> {{  $search['wilayah'] }} • {{ date("D, d F Y", strtotime($search['mulai'])) }}, {{ $search['jam'] }}</span>
-											  <span class="subheading1"><span class="subheading2"></span class=""> - {{$durasi}}, 23:59</span>
+											  <span class="subheading1"><span class="subheading2"></span class=""> {{  $search['wilayah'] }} • {{ date("D, d F Y", strtotime($search['mulai'])) }}, {{ $search['jam_mulai'] }}</span>
+											  <span class="subheading1"><span class="subheading2"></span class=""> - {{ date("D, d F Y", strtotime($search['akhir'])) }}, {{ $search['jam_akhir'] }}</span>
 											</h3>
 									  </div>
 									  
@@ -104,12 +104,14 @@
 									<form action="{{route('cardetail2',$getData->id)}}" method="get" enctype="multipart/form-data">
 										<input type="hidden" class="form-control" name="wilayah" value="{{  $search['wilayah'] }}">
 										<input type="hidden" class="form-control" name="mulai" value="{{  $search['mulai'] }}">
-										<input type="hidden" class="form-control" name="durasi" value="{{  $search['durasi'] }}">
-										<input type="hidden" class="form-control" name="jam" value="{{  $search['jam'] }}">
+										<input type="hidden" class="form-control" name="akhir" value="{{  $search['akhir'] }}">
+										<input type="hidden" class="form-control" name="durasi" value="{{  $Hari }}">
+										<input type="hidden" class="form-control" name="jam_mulai" value="{{  $search['jam_mulai'] }}">
+										<input type="hidden" class="form-control" name="jam_akhir" value="{{  $search['jam_akhir'] }}">
 									<!-- <p class="btn-custom"><a href="">Order</a></p> -->
 									<div class="price-rate">
 									<h6>
-											<span class="num"> {{ formatUang($getData->price * $search['durasi'])}}</span>
+											<span class="num"> {{ formatUang($getData->price * $Hari)}}</span>
 											<span class="num">/ Total Days</span>
 											
 										</h6>

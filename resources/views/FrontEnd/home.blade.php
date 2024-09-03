@@ -68,7 +68,7 @@
                       <form method="get" action="{{ route('searching1') }}" enctype="multipart/form-data">
                           <!-- @method('GET') -->
 
-                            <h2>Make your trip</h2>
+                            <h2>Make your trip Tanpa Supir</h2>
                             <div class="form-row">
                               <div class="form-group col-md-2">
                                 <label class="form-control">Lokasi Anda / Your location</label>
@@ -89,16 +89,19 @@
                               
                               <div class="form-group col-md-2">
                                 <label class="form-control">Waktu Jemput & Ambil / Pick Up Times</label>
-                                <input type="time" name="jam_mulai" value="{{ old('jam_mulai') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                <input type="time" name="jam_mulai" value="09:00" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                               </div>
+
                               <div class="form-group col-md-2">
-                                <label class="form-control">Tanggal Selesai / Start Date</label>
-                                <input type="date" name="akhir" value="{{ old('akhir') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                <label  class="form-control">Durasi / Duration</label>
+                                <select  name="durasi" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                  <option value="7">7 Hari</option>
+                                </select>
                               </div>
                               
                               <div class="form-group col-md-2">
                                 <label class="form-control">Waktu Selesai / Pick Up Times</label>
-                                <input type="time" name="jam_akhir" value="{{ old('jam_akhir') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                <input type="time" name="jam_akhir" value="09:00" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                               </div>
                               <div class="form-group col-md-2">
                                 <label class="form-control"></label>
@@ -113,7 +116,7 @@
                       <form method="get" action="{{ route('searching2') }}" enctype="multipart/form-data">
                           <!-- @method('GET') -->
 
-                            <h2>Make your trip</h2>
+                            <h2>Make your trip Dengan Supir</h2>
                             <div class="form-row">
                               <div class="form-group col-md-2">
                                 <label class="form-control">Lokasi Anda / Your location</label>
@@ -169,9 +172,9 @@
                               </div>
                               <div class="form-group col-md-2">
                                 <label class="form-control">Waktu Jemput & Ambil / Pick Up Times</label>
-                                <input type="time" name="jam" value="{{ old('jam') }}" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                                <input type="time" name="jam_mulai" value="17:15" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                               </div>
-                              
+                              <input type="hidden" name="jam_akhir" value="23:59" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                               <div class="form-group col-md-2">
                                 <label class="form-control"></label>
                                 <!-- <a href="" class="btn btn-warning"><i class="fa fa-search"></i></a> -->
@@ -213,6 +216,44 @@
 
 			</div>
 		</section>
+
+  <form action="{{ route('userinvoice1') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="1">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher 2</button>
+	</form>
+  <form action="{{ route('userinvoice2') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="2">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher 2</button>
+	</form>
+  <form action="{{ route('userinvoice3') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="1">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher 2</button>
+	</form>
+  <form action="{{ route('userinvoice4') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="2">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher 2</button>
+	</form>
+
+  <form action="{{ route('userinvoice4') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="1">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher v1</button>
+	</form>
+  <form action="{{ route('userinvoice4') }}" method="post">
+    @csrf
+    @method('POST')
+    <input type="hidden" class="form-control" name="order_id" value="2">
+    <button type="submit" class="btn btn-success" style="font-size: 10px;">Download Voucher v2</button>
+	</form>
 
 		<section class="ftco-section">
 			<div class="container">

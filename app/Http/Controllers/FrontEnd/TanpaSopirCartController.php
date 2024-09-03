@@ -8,6 +8,7 @@ use App\Models\TanpaSopirCart;
 use App\Models\TanpaSopir;
 use App\Models\Province;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Customer;
 
 class TanpaSopirCartController extends Controller
 {
@@ -54,8 +55,6 @@ class TanpaSopirCartController extends Controller
                 'user_id' => Auth::id(),
                 'wilayah' => $request->wilayah,
                 'biaya_aplikasi' => $request->biaya_aplikasi,
-                'jemput_id' => '1',
-                'lokasi_jemput' => '1',
                 'mulai' => $request->mulai,
                 'akhir' => $request->akhir,
                 'durasi' => $request->durasi,
@@ -105,7 +104,14 @@ class TanpaSopirCartController extends Controller
                 'customer_telpon' => $request->customer_telpon,
                 'customer_email' => $request->customer_email,
             ]);
-        
+            
+            if($cart){
+                $customer = Customer::create([
+                    'customer_name' => $request->customer_name,
+                    'customer_telpon' => $request->customer_telpon,
+                    'customer_email' => $request->customer_email,
+                ]);
+            }
             // dd($cart);
 
 

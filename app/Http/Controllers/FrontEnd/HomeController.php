@@ -38,7 +38,10 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $province = Province::orderBy('created_at', 'DESC')->get();
+        // $province = Province::orderBy('created_at', 'DESC')->get();
+        $province = Province::orderBy('created_at', 'DESC')
+            ->whereIn('id', [6, 3, 9])
+            ->get();
 
         $Banner = Banner::orderBy('created_at', 'DESC')->get();
 
@@ -79,21 +82,18 @@ class HomeController extends Controller
         $province =$city->province;
 
         $product = TanpaSopir::where('wilayah',$province->id)->where('status', 1)->get();
+        
+        // Ambil durasi dalam hari dari request
+        $totalHari = $request->durasi;
 
-        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $request->akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir,];
- 
-        // Mendefinisikan tanggal mulai dan tanggal akhir
-        $tanggalMulai = Carbon::create($request->mulai);
-        $tanggalAkhir = Carbon::create($request->akhir);
+        $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
 
-        // Menghitung selisih hari
-        $jumlahHari = $tanggalAkhir->diffInDays($tanggalMulai);
-
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
 
         return view('FrontEnd.category1')->with([
             'product' => $product,
             'search' => $search,
-            'jumlahHari' => $jumlahHari
+            'totalHari' => $totalHari,
         ]);
     }
     public function CategorySearch2(Request $request)
@@ -112,16 +112,19 @@ class HomeController extends Controller
 
         $product = DenganSopir::where('wilayah',$province->id)->where('status', 1)->get();
 
-        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'durasi' => $request->durasi,'jam' => $request->jam,];
- 
+        // Ambil durasi dalam hari dari request
         $totalHari = $request->durasi -1;
 
-        $durasi = date_create($request->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
+        $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
+
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
+        
+        $Hari = $request->durasi;
 
         return view('FrontEnd.category2')->with([
             'product' => $product,
             'search' => $search,
-            'durasi' => $durasi
+            'Hari' => $Hari
         ]);
     }
 
@@ -155,36 +158,40 @@ class HomeController extends Controller
 
         $product = TanpaSopir::where('id', $id)->where('status', 1)->firstOrFail();
 
-        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $request->akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir,];
- 
-        // Mendefinisikan tanggal mulai dan tanggal akhir
-        $tanggalMulai = Carbon::create($request->mulai);
-        $tanggalAkhir = Carbon::create($request->akhir);
+        $durasi = $request->durasi;
 
-        // Menghitung selisih hari
-        $jumlahHari = $tanggalAkhir->diffInDays($tanggalMulai);
+        $akhir = date_create($request->mulai)->modify("+{$durasi} days")->format('Y-m-d');
+
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
+
 
         return view('FrontEnd.tanpa-supir')->with([
             'product' => $product,
             'search' => $search,
-            'jumlahHari' => $jumlahHari
+            'durasi' => $durasi
         ]);
     }
     public function CarDetail2(Request $request, $id)
     {
 
-        $provinces = Province::orderBy('province', 'DESC')->get();
+        // $provinces = Province::orderBy('province', 'DESC')->get();
+        
+        $provinces = Province::orderBy('created_at', 'DESC')
+            ->whereIn('id', [6, 3, 9])
+            ->get();
 
         $product = DenganSopir::where('id', $id)->where('status', 1)->firstOrFail();
-        
-        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'durasi' => $request->durasi,'jam' => $request->jam,];
- 
+
+
         $totalHari = $request->durasi -1;
 
-        $durasi = date_create($request->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
+        $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
+
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
+        
+        $durasi = $request->durasi;
 
         $addon = AddOn::orderBy('created_at', 'DESC')->where('product_id', $product->name)->first();
-
 
         return view('FrontEnd.dengan-supir')->with([
             'product' => $product,
@@ -195,7 +202,7 @@ class HomeController extends Controller
 
         ]);
     }
-
+    
     public function Companys()
     {   
         $company = Company::orderBy('created_at', 'DESC')->where(['id' => '1'])->get();
@@ -233,6 +240,7 @@ class HomeController extends Controller
 
         ]);
     }
+    
     public function Booking1($id)
     {   
 
@@ -248,12 +256,7 @@ class HomeController extends Controller
 
         $cart = DenganSopirCart::where('id', $id)->firstOrFail();
 
-        $totalHari = $cart->durasi -1;
-
-        $durasi = date_create($cart->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
-
         $kembaliCity = City::orderBy('created_at', 'DESC')->where('id', $cart->lokasi_kembali)->first();
-
 
         $jemputCity = City::orderBy('created_at', 'DESC')->where('id', $cart->lokasi_jemput)->first();
 
@@ -263,7 +266,6 @@ class HomeController extends Controller
         
         return view('FrontEnd.booking2')->with([
             'cart' => $cart,
-            'durasi' => $durasi,
             'kembaliCity' => $kembaliCity,
             'kembaliPrice' => $kembaliPrice,
             'jemputCity' => $jemputCity,
@@ -395,11 +397,6 @@ class HomeController extends Controller
         }else {
             $addon_hari = 0;
         }
-        // dd($orderID, $kembalibanding, $kembaliPrice, $Kembalizona);
-
-        // dd($kembaliPrice, $jemputPrice);
-        $totalHari = $orderID->durasi -1;
-        $durasi = date_create($orderID->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
 
         $data["seller_name"]= $seller->name;
         $data["seller_telpon"]= $seller->phone;
@@ -418,8 +415,8 @@ class HomeController extends Controller
         $data["kembaliPrice"]= $kembaliPrice;
         $data["Kembalizona"]= $Kembalizona;
         $data["mulai"]= $orderID->mulai;
-        $data["durasi"]= $durasi;
-        $data["hari"]= $orderID->durasi;
+        $data["akhir"]= $orderID->akhir;
+        $data["durasi"]= $orderID->durasi;
         $data["jam_mulai"]= $orderID->jam_mulai;
         $data["jam_akhir"]= $orderID->jam_akhir;
         $data["product_name"]= $product->productName->name;
@@ -440,24 +437,24 @@ class HomeController extends Controller
         ->setPaper('a4', 'portrait')->setWarnings(false)
         ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
         
-        return $pdf->stream(rand(1,50). '.' . 'pdf');
+        // return $pdf->stream(rand(1,50). '.' . 'pdf');
 
         // Send email with PDF attachment
-        // Mail::send('FrontEnd.user-email-v2', $data, function($message) use ($data, $pdf) {
-        //     $message->to($data['seller_email'])
-        //         ->subject($data['product_name'])
-        //         ->attachData(
-        //             $pdf->output(),
-        //             'voucher.pdf',
-        //             [
-        //                 'mime' => 'application/pdf',
-        //             ]
-        //         )
-        //         ->cc([
-        //             $data['opration1'],
-        //             $data['opration2']
-        //         ]); // Dynamically add CC recipients
-        // });
+        Mail::send('FrontEnd.user-email-v2', $data, function($message) use ($data, $pdf) {
+            $message->to($data['seller_email'])
+                ->subject($data['product_name'])
+                ->attachData(
+                    $pdf->output(),
+                    'voucher.pdf',
+                    [
+                        'mime' => 'application/pdf',
+                    ]
+                )
+                ->cc([
+                    $data['opration1'],
+                    $data['opration2']
+                ]); // Dynamically add CC recipients
+        });
 
         // return redirect()->back()->with(['success' => 'Order Baru Ditambahkan']);
 
@@ -495,6 +492,8 @@ class HomeController extends Controller
         ->setPaper('a4', 'portrait')->setWarnings(false)
         ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
 
+        // return $pdf->stream(rand(1,50). '.' . 'pdf');
+
         // Send email with PDF attachment
         Mail::send('FrontEnd.seller-email-v1', $data, function($message) use ($data, $pdf) {
             $message->to($data['seller_email'])
@@ -519,6 +518,15 @@ class HomeController extends Controller
     public function UserInvoice4(Request $request)
     {   
         $orderID = Order::where('id', $request->order_id)->orderBy('created_at', 'DESC')->firstOrFail();
+
+        if(!empty($orderID->lokasi_jemput)){
+            $jemputCitys = $jemputCity->city_name;
+			$lokasi_jemput_lengkap = $orderID->lokasi_jemput_lengkap;
+        }else {
+            $jemputCitys = '';
+			$lokasi_jemput_lengkap  = '';
+        }
+
         $user = User::where('id', $orderID->user_id)->first();
         $seller = Seller::where('id', $orderID->seller_id)->first();
         $product = DenganSopir::where('id', $orderID->product_id)->first();
@@ -580,12 +588,6 @@ class HomeController extends Controller
             $addon_hari = 0;
         }
 
-        // dd($orderID, $kembalibanding, $kembaliPrice, $Kembalizona);
-
-        // dd($kembaliPrice, $jemputPrice);
-        $totalHari = $orderID->durasi -1;
-        $durasi = date_create($orderID->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
-
         $data["seller_name"]= $seller->name;
         $data["seller_telpon"]= $seller->phone;
 		$data["seller_email"]= $seller->email;
@@ -603,8 +605,8 @@ class HomeController extends Controller
         $data["kembaliPrice"]= $kembaliPrice;
         $data["Kembalizona"]= $Kembalizona;
         $data["mulai"]= $orderID->mulai;
-        $data["durasi"]= $durasi;
-        $data["hari"]= $orderID->durasi;
+        $data["akhir"]= $orderID->akhir;
+        $data["durasi"]= $orderID->durasi;
         $data["jam_mulai"]= $orderID->jam_mulai;
         $data["jam_akhir"]= $orderID->jam_akhir;
         $data["product_name"]= $product->productName->name;
@@ -623,6 +625,9 @@ class HomeController extends Controller
         $pdf = PDF::loadView('FrontEnd.seller-invoice-v2', $data)
         ->setPaper('a4', 'portrait')->setWarnings(false)
         ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
+
+        // return $pdf->stream(rand(1,50). '.' . 'pdf');
+
 
         // Send email with PDF attachment
         Mail::send('FrontEnd.seller-email-v2', $data, function($message) use ($data, $pdf) {
@@ -644,6 +649,7 @@ class HomeController extends Controller
         // return redirect()->back()->with(['success' => 'Order Baru Ditambahkan']);
 
     }
+
 
 
     public function UserCar()

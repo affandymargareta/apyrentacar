@@ -16,6 +16,7 @@ use App\Models\CityPrice;
 use App\Models\City;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
+use App\Models\Seller;
 
 class DenganSopirOrderController extends Controller
 {
@@ -67,130 +68,135 @@ class DenganSopirOrderController extends Controller
         // dd($params);
 
 	}
-            /**
+     /**
 	 * Generate payment token
 	 *
 	 * @param Order $order order data
 	 *
 	 * @return void
 	 */
-	private function _OrderEmail($order)
-	{
-        // Ambil data order dan relasi
-        $orderID = Order::where('id', $order->id)->orderBy('created_at', 'DESC')->firstOrFail();
-        $seller = Seller::where('id', $orderID->seller_id)->first();
-        $product = DenganSopir::where('id', $orderID->product_id)->first();
-        $jemputCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_jemput)->first();
-        $kembaliCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_kembali)->first();
+	// private function _OrderEmail($order)
+	// {
+    //     // Ambil data order dan relasi
+    //     $orderID = Order::where('id', $order->id)->orderBy('created_at', 'DESC')->firstOrFail();
+    //     $seller = Seller::where('id', $orderID->seller_id)->first();
+    //     $product = DenganSopir::where('id', $orderID->product_id)->first();
+    //     $jemputCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_jemput)->first();
+    //     $kembaliCity = City::orderBy('created_at', 'DESC')->where('id', $orderID->lokasi_kembali)->first();
 
-        if(!empty($orderID->lokasi_jemput)){
-            $jemputCitys = $jemputCity->city_name;
-            $lokasi_jemput_lengkap = $orderID->lokasi_jemput_lengkap;
-        }else {
-            $jemputCitys = '';
-            $lokasi_jemput_lengkap  = '';
-        }
-        if(!empty($orderID->lokasi_kembali)){
-            $kembaliCitys = $kembaliCity->city_name;
-            $lokasi_kembali_lengkap = $orderID->lokasi_kembali_lengkap;
+    //     if(!empty($orderID->lokasi_jemput)){
+    //         $jemputCitys = $jemputCity->city_name;
+    //         $lokasi_jemput_lengkap = $orderID->lokasi_jemput_lengkap;
+    //     }else {
+    //         $jemputCitys = '';
+    //         $lokasi_jemput_lengkap  = '';
+    //     }
+    //     if(!empty($orderID->lokasi_kembali)){
+    //         $kembaliCitys = $kembaliCity->city_name;
+    //         $lokasi_kembali_lengkap = $orderID->lokasi_kembali_lengkap;
 
-        }else {
-            $kembaliCitys = '';
-            $lokasi_kembali_lengkap = '';
-        }
+    //     }else {
+    //         $kembaliCitys = '';
+    //         $lokasi_kembali_lengkap = '';
+    //     }
 
-        $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
+    //     $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
 
-        if($kembalibanding->province_id != $orderID->jemput_id) {
-            $jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();
-            $jemputPrice = $jemput->price ?? '';
-            $jemputzona = $jemput->zona ?? '';
-        } else {
-            $jemputPrice = 0;
-            $jemputzona = '';
-        }
+    //     if($kembalibanding->province_id != $orderID->jemput_id) {
+    //         $jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();
+    //         $jemputPrice = $jemput->price ?? '';
+    //         $jemputzona = $jemput->zona ?? '';
+    //     } else {
+    //         $jemputPrice = 0;
+    //         $jemputzona = '';
+    //     }
 
-        if(!empty($orderID->kembali_id)){
+    //     if(!empty($orderID->kembali_id)){
 
-            if($kembalibanding->province_id != $orderID->kembali_id) {
-                $Kembali = CityPrice::where('province_id', $orderID->kembali_id)->where('product_id', $product->name)->first();
-                $kembaliPrice = $Kembali->price ?? '';
-                $Kembalizona = $Kembali->zona ?? '';
-            } else {
-                $kembaliPrice = 0;
-                $Kembalizona = '';
-            }
+    //         if($kembalibanding->province_id != $orderID->kembali_id) {
+    //             $Kembali = CityPrice::where('province_id', $orderID->kembali_id)->where('product_id', $product->name)->first();
+    //             $kembaliPrice = $Kembali->price ?? '';
+    //             $Kembalizona = $Kembali->zona ?? '';
+    //         } else {
+    //             $kembaliPrice = 0;
+    //             $Kembalizona = '';
+    //         }
 
-        }else {
-            $kembaliPrice = 0;
-            $Kembalizona = '';
-        }
+    //     }else {
+    //         $kembaliPrice = 0;
+    //         $Kembalizona = '';
+    //     }
 
         
-        if(!empty($orderID->addon_price)){
-            $addon_price = $orderID->addon_price;
-        }else {
-            $addon_price = 0;
-        }
-        if(!empty($orderID->addon_hari)){
-            $addon_hari = $orderID->addon_hari;
-        }else {
-            $addon_hari = 0;
-        }
+    //     if(!empty($orderID->addon_price)){
+    //         $addon_price = $orderID->addon_price;
+    //     }else {
+    //         $addon_price = 0;
+    //     }
+    //     if(!empty($orderID->addon_hari)){
+    //         $addon_hari = $orderID->addon_hari;
+    //     }else {
+    //         $addon_hari = 0;
+    //     }
 
-        // dd($orderID, $kembalibanding, $kembaliPrice, $Kembalizona);
+    //     $data["seller_name"]= $seller->name;
+    //     $data["seller_telpon"]= $seller->phone;
+    //     $data["seller_email"]= $seller->email;
+    //     $data["invoice"]= $orderID->invoice;
+    //     $data["payment_status"]= $orderID->payment_status;
+    //     $data["wilayah"]= $orderID->wilayah;
+    //     $data["jemput_id"]= $orderID->jemput_id;
+    //     $data["lokasi_jemput"]= $jemputCitys;
+    //     $data["lokasi_jemput_lengkap"]= $lokasi_jemput_lengkap;
+    //     $data["jemputPrice"]= $jemputPrice;
+    //     $data["jemputzona"]= $jemputzona;
+    //     $data["kembali_id"]= $orderID->kembali_id;
+    //     $data["lokasi_kembali"]= $kembaliCitys;
+    //     $data["lokasi_kembali_lengkap"]= $lokasi_kembali_lengkap;
+    //     $data["kembaliPrice"]= $kembaliPrice;
+    //     $data["Kembalizona"]= $Kembalizona;
+    //     $data["mulai"]= $orderID->mulai;
+    //     $data["akhir"]= $orderID->akhir;
+    //     $data["durasi"]= $orderID->durasi;
+    //     $data["jam_mulai"]= $orderID->jam_mulai;
+    //     $data["jam_akhir"]= $orderID->jam_akhir;
+    //     $data["product_name"]= $product->productName->name;
+    //     $data["product"]= $product->wilayah;
+    //     $data["product_price"]= $product->price;
+    //     $data["customer_name"]= $orderID->customer_name;
+    //     $data["customer_telpon"]= $orderID->customer_telpon;
+    //     $data["customer_email"]= $orderID->customer_email;
+    //     $data["addon_price"]= $addon_price;
+    //     $data["addon_hari"]= $addon_hari;
+    //     $data["price"]= $orderID->price;
+    //     $data["order_id"]= $orderID->id;
+    //     $data["opration1"]= "carengibran@gmail.com";
+    //     $data["opration2"]= "carengibran@gmail.com";
 
-        // dd($kembaliPrice, $jemputPrice);
-        $totalHari = $orderID->durasi -1;
-        $durasi = date_create($orderID->mulai)->modify("+ {$totalHari} days")->format("D, d F Y");
+    //     $pdf = PDF::loadView('FrontEnd.seller-invoice-v2', $data)
+    //     ->setPaper('a4', 'portrait')->setWarnings(false)
+    //     ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
 
-        $data["seller_name"]= $seller->name;
-        $data["seller_telpon"]= $seller->phone;
-        $data["seller_email"]= $seller->email;
-        $data["invoice"]= $orderID->invoice;
-        $data["payment_status"]= $orderID->payment_status;
-        $data["wilayah"]= $orderID->wilayah;
-        $data["jemput_id"]= $orderID->jemput_id;
-        $data["lokasi_jemput"]= $jemputCitys;
-        $data["lokasi_jemput_lengkap"]= $lokasi_jemput_lengkap;
-        $data["jemputPrice"]= $jemputPrice;
-        $data["jemputzona"]= $jemputzona;
-        $data["kembali_id"]= $orderID->kembali_id;
-        $data["lokasi_kembali"]= $kembaliCitys;
-        $data["lokasi_kembali_lengkap"]= $lokasi_kembali_lengkap;
-        $data["kembaliPrice"]= $kembaliPrice;
-        $data["Kembalizona"]= $Kembalizona;
-        $data["mulai"]= $orderID->mulai;
-        $data["durasi"]= $durasi;
-        $data["hari"]= $orderID->durasi;
-        $data["jam_mulai"]= $orderID->jam_mulai;
-        $data["jam_akhir"]= $orderID->jam_akhir;
-        $data["product_name"]= $product->productName->name;
-        $data["product"]= $product->wilayah;
-        $data["product_price"]= $product->price;
-        $data["customer_name"]= $orderID->customer_name;
-        $data["customer_telpon"]= $orderID->customer_telpon;
-        $data["customer_email"]= $orderID->customer_email;
-        $data["addon_price"]= $addon_price;
-        $data["addon_hari"]= $addon_hari;
-        $data["price"]= $orderID->price;
-        $data["order_id"]= $orderID->id;
-        $data["opration1"]= "carengibran@gmail.com";
-        $data["opration2"]= "carengibran@gmail.com";
+    //     // return $pdf->stream(rand(1,50). '.' . 'pdf');
 
-        $pdf = Pdf::loadView('FrontEnd.seller-invoice-v2', $data)
-            ->setPaper('a4', 'portrait')
-            ->setWarnings(false)
-            ->setOptions(['dpi' => 250, 'isHtml5ParserEnabled' => true, 'defaultFont' => 'sans-serif']);
 
-        Mail::send('FrontEnd.seller-email-v2', $data, function ($message) use ($data, $pdf) {
-            $message->to($data['seller_email'])
-                ->subject($data['product_name'])
-                ->attachData($pdf->output(), 'voucher.pdf', ['mime' => 'application/pdf'])
-                ->cc([$data['opration1'], $data['opration2']]);
-        });
-
-	}
+    //     // Send email with PDF attachment
+    //     Mail::send('FrontEnd.seller-email-v2', $data, function($message) use ($data, $pdf) {
+    //         $message->to($data['seller_email'])
+    //             ->subject($data['product_name'])
+    //             ->attachData(
+    //                 $pdf->output(),
+    //                 'voucher.pdf',
+    //                 [
+    //                     'mime' => 'application/pdf',
+    //                 ]
+    //             )
+    //             ->cc([
+    //                 $data['opration1'],
+    //                 $data['opration2']
+    //             ]); // Dynamically add CC recipients
+    //     });
+	// }
 
     public function store(Request $request)
     {
@@ -237,7 +243,7 @@ class DenganSopirOrderController extends Controller
             $order = Order::create([
                 'user_id' => Auth::id(),
                 'seller_id' => $cart->seller_id,
-                'invoice' => rand(100000, 999999). '-' .$dt->year, //INVOICENYA KITA BUAT DARI STRING RANDOM DAN WAKTU
+                'invoice' => 'v2'. '-' .rand(100000, 999999). '-' .$dt->year, //INVOICENYA KITA BUAT DARI STRING RANDOM DAN WAKTU
                 'order_date' => $orderDate,
                 'fitur' => 'v2',
                 'payment_due' => $paymentDue,
@@ -253,6 +259,7 @@ class DenganSopirOrderController extends Controller
                 'lokasi_kembali' => $lokasi_kembali,
                 'lokasi_kembali_lengkap' => $lokasi_kembali_lengkap,
                 'mulai' => $cart->mulai,
+                'akhir' => $cart->akhir,
                 'durasi' => $cart->durasi,
                 'jam_mulai' => $cart->jam_mulai,
                 'jam_akhir' => $cart->jam_akhir,
@@ -266,7 +273,7 @@ class DenganSopirOrderController extends Controller
             // dd($order);
 
             $this->_generatePaymentToken($order);
-            $this->_OrderEmail($order);
+            // $this->_OrderEmail($order);
             // dd($order);
 
             // create coupon transaksi

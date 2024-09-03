@@ -31,7 +31,7 @@
         <div class="row">
           <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+              <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link active" href="index.html">
                         <i class="zmdi zmdi-widgets"></i>
@@ -156,7 +156,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('acustomer') }}">
+                  <a class="nav-link" href="{{ route('customers') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
@@ -216,94 +216,54 @@
                     <!-- <div class="title">Product <a href="product-create.html" type="button" class="btn btn-info">Tambah Product</a>
                     </div> -->
                     <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Tambah Province
+                  <button type="button" class="btn btn-primary">
+                    Edit Banner
                   </button>
                   <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-scrollable">
-                      <form method="post" action="{{ route('province.store') }}" enctype="multipart/form-data">
-                        @method('POST')
-                        @csrf
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                              <div class="form-group" style="color: #000;">
-                                <label >Province</label>
-                                <input type="text" class="form-control" name="province" value="{{ old('province') }}">
-                                <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
-                              </div>
-                              
-                              <div class="form-group form-check" style="color: #000;">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                              </div>
-                                                       
-                          </div>
-                          <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Submit</button>
-                          </div>
-                        </div>
-                        </form>
-                      </div>
-                    </div>
                     <!-- Scrollable modal -->
                     <!-- <div class="count">| 32 Projects</div> -->
                     <i class="zmdi zmdi-download"></i>
                   </header>
-                  <div class="container" style="color: #fff;">
-                      <table id="example" class="table table-striped table-bordered" style="color: #fff;">
-                          <thead>
-                            <tr>
-                              <!-- <th>Nama</th> -->
-                              <th>ID</th>
-                              <th>Id</th>
-                              <th>Province</th>
-                              <!-- <th>Description</th> -->
-                              <th>Actions</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                          @foreach ($province as $getData)
-                            <tr>
-                            <td>{{ $loop->iteration }}</td>
+                  <form method="post" action="{{ route('customer.update', $customer->id) }}" enctype="multipart/form-data">               
+                      @method('PUT')
+                      @csrf
+                      <div class="form-group" style="color: #fff;">
+                        <label >Instagram</label>
+                        <input type="text" class="form-control" name="instagram" value="{{ $customer->instagram }}">
+                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                      </div>
 
-                              <td>
-                                {{ $getData ->id }}
-                              </td>
-                              <td>
-                                {{ $getData ->province }}
-                              </td>
-                              
-                             
-                              <td>
-                                <form action="{{ route('province.destroy', $getData->id) }}" method="post">
-                                  @csrf
-                                  @method('DELETE')
-                                  <a href="{{ route('province.edit', $getData->id) }}" type="button" class="btn btn-info">Edit Product</a>
-                                  <button type="submit" class="btn btn-danger">Delete</button>
-                                </form>
-                              </td>
-                            </tr>
-                            @endforeach
-                          </tbody>
-                          <!-- <tfoot>
-                              <tr>
-                                  <th>Name</th>
-                                  <th>Position</th>
-                                  <th>Office</th>
-                                  <th>Age</th>
-                                  <th>Start date</th>
-                                  <th>Salary</th>
-                              </tr>
-                          </tfoot> -->
-                      </table>
-                  </div>
+                      <div class="form-group" style="color: #fff;">
+                        <label >Facebook</label>
+                        <input type="text" class="form-control" name="facebook" value="{{ $customer->facebook }}">
+                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                      </div>
+
+                      <div class="form-group" style="color: #fff;">
+                        <label >Customer Name</label>
+                        <input type="text" class="form-control" name="customer_name" value="{{ $customer->customer_name }}">
+                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                      </div>
+                      
+                      <div class="form-group" style="color: #fff;">
+                        <label >Customer Telpon</label>
+                        <input type="text" class="form-control" name="customer_telpon" value="{{ $customer->customer_telpon }}">
+                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                      </div>
+
+                      <div class="form-group" style="color: #fff;">
+                        <label >Customer Email</label>
+                        <input type="text" class="form-control" name="customer_email" value="{{ $customer->customer_email }}">
+                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                      </div>
+                     
+                      
+                      <div class="form-group form-check" style="color: #fff;">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                      </div>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
               </div>
             </div>
 

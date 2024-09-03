@@ -31,7 +31,7 @@
         <div class="row">
           <nav class="col-md-2 d-none d-md-block sidebar">
             <div class="sidebar-sticky">
-            <ul class="nav flex-column">
+              <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link active" href="index.html">
                         <i class="zmdi zmdi-widgets"></i>
@@ -156,7 +156,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('acustomer') }}">
+                  <a class="nav-link" href="{{ route('customers') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
@@ -217,12 +217,12 @@
                     </div> -->
                     <!-- Button trigger modal -->
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Tambah Province
+                    Tambah Contact
                   </button>
                   <!-- Modal -->
                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-dialog-scrollable">
-                      <form method="post" action="{{ route('province.store') }}" enctype="multipart/form-data">
+                      <form method="post" action="{{ route('customer.store') }}" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
                         <div class="modal-content">
@@ -233,9 +233,34 @@
                             </button>
                           </div>
                           <div class="modal-body">
+
+                          <div class="form-group" style="color: #000;">
+                                <label >Instagram</label>
+                                <input type="text" class="form-control" name="instagram" value="{{ old('instagram') }}">
+                                <small class="form-text text-muted">We'll never share your instagram with anyone else.</small>
+                              </div>
+
                               <div class="form-group" style="color: #000;">
-                                <label >Province</label>
-                                <input type="text" class="form-control" name="province" value="{{ old('province') }}">
+                                <label >Facebook</label>
+                                <input type="text" class="form-control" name="facebook" value="{{ old('facebook') }}">
+                                <small class="form-text text-muted">We'll never share your facebook with anyone else.</small>
+                              </div>
+
+                              <div class="form-group" style="color: #000;">
+                                <label >Customer Name</label>
+                                <input type="text" class="form-control" name="customer_name" value="{{ old('customer_name') }}">
+                                <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                              </div>
+
+                              <div class="form-group" style="color: #000;">
+                                <label >Customer Telpon</label>
+                                <input type="text" class="form-control" name="customer_telpon" value="{{ old('customer_telpon') }}">
+                                <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
+                              </div>
+
+                              <div class="form-group" style="color: #000;">
+                                <label >Customer Email</label>
+                                <input type="text" class="form-control" name="customer_email" value="{{ old('customer_email') }}">
                                 <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
                               </div>
                               
@@ -260,32 +285,45 @@
                       <table id="example" class="table table-striped table-bordered" style="color: #fff;">
                           <thead>
                             <tr>
-                              <!-- <th>Nama</th> -->
                               <th>ID</th>
-                              <th>Id</th>
-                              <th>Province</th>
-                              <!-- <th>Description</th> -->
+                              <th>Instagram</th>
+                              <th>Facebook</th>
+                              <th>Customer Name</th>
+                              <th>Customer Telpon</th>
+                              <th>Customer Email</th>
                               <th>Actions</th>
                             </tr>
                           </thead>
                           <tbody>
-                          @foreach ($province as $getData)
+                          @foreach ($customer as $getData)
                             <tr>
                             <td>{{ $loop->iteration }}</td>
 
                               <td>
-                                {{ $getData ->id }}
+                                {{ $getData ->instagram }}
                               </td>
+                        
                               <td>
-                                {{ $getData ->province }}
+                                  {{ $getData ->facebook }}
                               </td>
-                              
+
+                              <td>
+                                  {{ $getData ->customer_name }}
+                              </td>
+
+                              <td>
+                                  {{ $getData ->customer_telpon }}
+                              </td>
+
+                              <td>
+                                  {{ $getData ->customer_email }}
+                              </td>
                              
                               <td>
-                                <form action="{{ route('province.destroy', $getData->id) }}" method="post">
+                                <form action="{{ route('customer.destroy', $getData->id) }}" method="post">
                                   @csrf
                                   @method('DELETE')
-                                  <a href="{{ route('province.edit', $getData->id) }}" type="button" class="btn btn-info">Edit Product</a>
+                                  <a href="{{ route('customer.edit', $getData->id) }}" type="button" class="btn btn-info">Edit Product</a>
                                   <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
                               </td>

@@ -31,12 +31,12 @@
 			<input type="hidden" class="form-control" name="wilayah" value="{{  $search['wilayah'] }}">
 			<input type="hidden" class="form-control" name="mulai" value="{{  $search['mulai'] }}">
 			<input type="hidden" class="form-control" name="akhir" value="{{  $search['akhir'] }}">
-			<input type="hidden" class="form-control" name="durasi" value="{{  $jumlahHari }}">
+			<input type="hidden" class="form-control" name="durasi" value="{{  $durasi }}">
 			<input type="hidden" class="form-control" name="jam_mulai" value="{{  $search['jam_mulai'] }}">
 			<input type="hidden" class="form-control" name="jam_akhir" value="{{  $search['jam_akhir'] }}">
 			<!-- <form action="javascript:void(0)" id="frm-create-post" method="post"> -->
 			<div class="row">
-				<div class="col-lg-12">
+				<div class="col-lg-12"> 
 					<div class="card" style="background : rgb(158 158 158 / 40%);">
 						<div class="card-body">
 							<p class="card-text" style="margin-bottom: 5px; color : #000;">Rental Mobil : Tanpa Sopir / </p>
@@ -181,7 +181,7 @@
 								<div class="card-body">
 									<p class="card-text" style="color : #000;">Harga Total <br> Total price</p>
 									<p class="card-text">
-										<span id="total" style="color : #000;">{{ formatUang($product->price * $jumlahHari) }}</span>
+										<span id="total" style="color : #000;">{{ formatUang($product->price * $durasi) }}</span>
 									</p>
 									<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-post">Submit</button>
 								</div>
@@ -196,7 +196,7 @@
 											</li>
 											<li class="list-group-item d-flex justify-content-between align-items-center" style="color : #000;">
 												Rental dasar <br> Basic rental
-												<span id="rentalDasar" style="color : #000;">{{ formatUang($product->price * $jumlahHari) }}</span>
+												<span id="rentalDasar" style="color : #000;">{{ formatUang($product->price * $durasi) }}</span>
 											</li>
 											<!-- <li class="list-group-item d-flex justify-content-between align-items-center" id="zona1">
 
@@ -212,7 +212,7 @@
 											<div id="durasiContent" style="display:none"></div>
 											<li class="list-group-item d-flex justify-content-between align-items-center" style="color : #000;">
 												Durasi <br> Duration
-												<span class="total" style="color : #000;">{{ $jumlahHari }} Hari / Days</span>
+												<span class="total" style="color : #000;">{{ $durasi }} Hari / Days</span>
 											</li>
 										</ul>
 

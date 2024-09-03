@@ -152,7 +152,7 @@
 		</tr>
 	</table>
 
-	<table style="margin-bottom: 10px;">
+	<table style="margin-bottom: 10px; page-break-after: always;">
 		<tr>
 			<td colspan="2" style="font-weight: bold; ">Penyedia Rental</td>
 		</tr>
@@ -209,81 +209,51 @@
 		</tr>
 	</table>
 
-	<table id="tablePanduan" style="page-break-after: always;">
+	<table id="tablePanduan page-break-after: always;">
 		<tr>
-			<td style="font-weight: bold; " colspan="2">Panduan Tambahan Rental Mobil</td>
+			<td style="font-weight: bold; " colspan="2">Persyaratan Rental Tanpa Supir</td>
 		</tr>
 		<tr>
-			<td width="30%" >Luar Kota Zona 1</td>
-			<td >Biaya ini akan dikenakan untuk penggunaan dalam Zona 1. Khusus untuk
-			Golden Bird, biaya sudah termasuk bahan bakar dan makanan pengemudi.
-			Biaya Tol, parkir, dan akomodasi pengemudi tidak termasuk dalam add-on ini.</td>
+			<td width="10%">1</td>
+			<td >SIM A/SIM Internasional.</td>
 		</tr>
 		<tr>
-			<td width="30%" >Luar Kota Zona 2</td>
-			<td >Biaya ini akan dikenakan untuk penggunaan dalam Zona 2. Hanya untuk Golden
-			Bird, biaya juga termasuk bahan bakar dan pengemudi makanan. Tol, parkir,
-			dan akomodasi penginapan pengemudi tidak termasuk dalam add-on ini.</td>
+			<td width="10%">2</td>
+			<td >Pengemudi harus membagikan kepada penyedia foto SIM A atau SIM Internasional mereka.</td>
 		</tr>
 		<tr>
-			<td width="30%" >All Inclusive</td>
-			<td >Paket tambahan ini melingkupi biaya-biaya seperti bahan bakar dan makanan
-			pengemudi. Paket tambahan ini tidak termasuk tol dan parkir.</td>
+			<td width="10%">3</td>
+			<td >Foto Diri dengan KTP/Paspor.</td>
 		</tr>
 		<tr>
-			<td width="30%" >Akomodasi Sopir</td>
-			<td >Biaya tambahan ini akan dibebankan untuk membiyai penginapan pengemudi
-			selama perjalanan luar kota.</td>
+			<td width="10%">4</td>
+			<td >Pengemudi harus membagikan kepada penyedia foto diri dengan KTP/paspor mereka.</td>
 		</tr>
 		<tr>
-			<td width="30%" >Jemput Luar Kota Zona 1</td>
-			<td >Biaya ini akan dikenakan ketika lokasi penjemputan Anda di Zona 1. Biaya ini
-			sudah termasuk penggunaan luar kota. Khusus untuk Golden Bird, biaya juga
-			termasuk bahan bakar dan makanan pengemudi. Tol, parkir, dan akomodasi
-			penginapan pengemudi tidak termasuk dalam add-on ini.
+			<td width="10%">5</td>
+			<td >E-KTP/paspor.
 			</td>
 		</tr>
 		<tr>
-			<td width="30%" >Jemput Luar Kota Zona 2</td>
-			<td >Biaya ini akan dikenakan ketika lokasi penjemputan Anda di Zona 2. Biaya ini
-			sudah termasuk penggunaan luar kota. Khusus untuk Golden Bird, biaya juga
-			termasuk bahan bakar dan makanan pengemudi. Tol, parkir, dan akomodasi
-			penginapan pengemudi tidak termasuk dalam add-on ini.
+			<td width="10%">6</td>
+			<td >Pengemudi harus membagikan kepada penyedia foto e-KTP/paspor mereka.
 			</td>
 		</tr>
 		<tr>
-			<td width="30%" >Overtime</td>
-			<td >Biaya ini akan dikenakan ketika durasi sewa melebihi batas waktu. Khusus untuk
-			Golden Bird, biaya ini termasuk bahan bakar dan makanan pengemudi. Tol dan
-			parkir tidak termasuk. Tambahan biaya harus dibayar langsung ke sopir atau
-			penyedia rental.
+			<td width="10%" >7</td>
+			<td >Others (if provider requires additional verification)
+			Syarat tambahan seperti NPWP, kartu keluarga, dan/atau nama akun media sosial dapat diminta kepada pengemudi setelah pemesanan jika penyedia membutuhkan verifikasi tambahan.
 			</td>
 		</tr>
 		<tr>
-			<td width="30%" >Antar Luar Kota Zona 1</td>
-			<td >Biaya ini akan dikenakan ketika lokasi antar Anda di Zona 1 atau Zona 2. Biaya
-			ini sudah termasuk Anda penggunaan ke luar kota. Hanya untuk Golden Bird,
-			juga termasuk bahan bakar. Tol dan parkir tidak termasuk dalam add-on.
+			<td width="10%">8</td>
+			<td>Bersedia Di Survey.
 			</td>
 		</tr>
-		<tr>
-			<td width="30%" >Antar Luar Kota Zona 2</td>
-			<td >Biaya ini akan dikenakan ketika lokasi antar Anda di Zona 1 atau Zona 2. Biaya
-			ini sudah termasuk Anda penggunaan ke luar kota. Hanya untuk Golden Bird,
-			juga termasuk bahan bakar. Tol dan parkir tidak termasuk dalam add-on.</td>
-		</tr>
-		<tr>
-			<td width="30%" >Peta Zona Luar Kota</td>
-			<td >Biaya ini akan dikenakan untuk penggunaan dalam Zona 1 dan Zona 2. Khusus
-			untuk Golden Bird, biaya sudah termasuk bahan bakar dan makanan
-			pengemudi. Biaya Tol, parkir, dan akomodasi pengemudi tidak termasuk dalam
-			add-on ini, Untuk penyewaan dengan sopir, biaya tambahan berlaku untuk
-			perjalanan di luar daerah dengan warna biru.
-			</td>
-		</tr>
+		
 	</table>
 
-	<table id="tableTipeTambahan">
+	<!-- <table id="tableTipeTambahan">
 		<tr>
 			<td width="10%" >No</td>
 			<td width="50%" >Tipe Tambahan</td>
@@ -413,7 +383,7 @@
 			<td width="50%" >+62816848835</td>
 			<td width="50%" >apygroup2@gmail.com</td>
 		</tr>
-	</table>
+	</table> -->
 
 	<!-- Latest compiled and minified JavaScript -->
 

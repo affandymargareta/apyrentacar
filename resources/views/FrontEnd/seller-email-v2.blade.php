@@ -85,8 +85,8 @@
 			</tr>
 			<tr>
 				<td width="50%" style="font-size: 20px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px; padding-right: 30px;">Durasi rental</td>
-				<td width="50%" style="font-size: 20px;padding-bottom: 10px; padding-left: 30px; padding-top: 5px; padding-right: 30px;"> {{ date("D, d F Y", strtotime($mulai)) }} - {{$durasi}}
-				<br>{{ $hari }} days</td>
+				<td width="50%" style="font-size: 20px;padding-bottom: 10px; padding-left: 30px; padding-top: 5px; padding-right: 30px;"> {{ date("D, d F Y", strtotime($mulai)) }} - {{ date("D, d F Y", strtotime($akhir)) }}
+				<br>{{ $durasi }} days</td>
 			</tr>
 			
 		</table>
@@ -141,7 +141,7 @@
 				</tr>
 				<tr style="background: rgba(0, 0, 0, 0.03);">
 					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">Tanggal & Waktu Pengantaran</td>
-					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">{{$durasi}} •  {{$jam_akhir}} GMT+7</td>
+					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">{{ date("D, d F Y", strtotime($akhir)) }} •  {{$jam_akhir}} GMT+7</td>
 				</tr>
 				<tr>
 					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">Lokasi Pengantaran</td>
@@ -157,7 +157,7 @@
 				</tr>
 				<tr style="background: rgba(0, 0, 0, 0.03);">
 					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">Tanggal & Waktu Pengantaran</td>
-					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">{{$durasi}} •  {{$jam_akhir}} GMT+7</td>
+					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">{{ date("D, d F Y", strtotime($akhir)) }} •  {{$jam_akhir}} GMT+7</td>
 				</tr>
 				<tr>
 					<td width="50%" style="font-size: 18px; padding-bottom: 10px; padding-left: 30px; padding-top: 5px;">Lokasi Pengantaran</td>

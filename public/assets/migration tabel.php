@@ -116,6 +116,8 @@ php artisan make:model --migration --controller AddOn
 
 php artisan make:model --migration --controller Fasilitas
 
+php artisan make:model --migration --controller Customer
+
 
 php artisan make:model --migration --controller Company --resource   
 

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->text('lokasi_kembali')->nullable();
             $table->text('lokasi_kembali_lengkap')->nullable();
             $table->text('mulai');
+            $table->text('akhir');
             $table->text('durasi');
             $table->text('jam_mulai');
             $table->text('jam_akhir');

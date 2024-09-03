@@ -28,10 +28,12 @@
 			@csrf
 			<input type="hidden" name="biaya_aplikasi" value="3000" class="form-control">
 			<input type="hidden" name="product_id" value="{{ $product->id }}" class="form-control">
-			<input type="hidden" name="wilayah" value="{{  $search['wilayah'] }}" class="form-control">
-			<input type="hidden" name="mulai" value="{{  $search['mulai'] }}" class="form-control">
-			<input type="hidden" name="durasi" value="{{  $search['durasi'] }}" class="form-control">
-			<input type="hidden" name="jam" value="{{  $search['jam'] }}" class="form-control">
+			<input type="hidden" class="form-control" name="wilayah" value="{{  $search['wilayah'] }}">
+			<input type="hidden" class="form-control" name="mulai" value="{{  $search['mulai'] }}">
+			<input type="hidden" class="form-control" name="akhir" value="{{  $search['akhir'] }}">
+			<input type="hidden" class="form-control" name="durasi" value="{{  $durasi }}">
+			<input type="hidden" class="form-control" name="jam_mulai" value="{{  $search['jam_mulai'] }}">
+			<input type="hidden" class="form-control" name="jam_akhir" value="{{  $search['jam_akhir'] }}">
 
 			<!-- <form action="javascript:void(0)" id="frm-create-post" method="post"> -->
 			<div class="row">
@@ -40,7 +42,7 @@
 						<div class="card-body">
 							<p class="card-text" style="margin-bottom: 5px; color : #000;">Rental Mobil : Dengan Sopir / With Driver</p>
 							<h5 class="card-title" style="margin-bottom: 5px; color : #000;">Rental Mobil Dengan Supir / Rent A Car With Driver</h5>
-							<p class="card-text" style="margin-bottom: 5px; color : #000;">{{ $search['wilayah'] }} • {{ date("D, d F Y", strtotime($search['mulai'])) }}, {{ $search['jam'] }} - {{$durasi}}, 23:59.</p>
+							<p class="card-text" style="margin-bottom: 5px; color : #000;">{{ $search['wilayah'] }} • {{ date("D, d F Y", strtotime($search['mulai'])) }}, {{ $search['jam_mulai'] }} - {{ date("D, d F Y", strtotime($search['akhir'])) }}, {{ $search['jam_akhir'] }}.</p>
 						</div>
 					</div>
 				</div>
@@ -175,7 +177,7 @@
 							<h6 class="card-subtitle mb-2 text-muted" style="color : #000;">Pilih Pilih Add On</h6>
 							<select class="form-control" name="addon_hari" id="addon_hari">
 								<option value="0" style="color : #000;">Pilih Add On</option>
-									@for ($i = 1; $i <= $search['durasi']; $i++) 
+									@for ($i = 1; $i <= $durasi; $i++) 
 									<option value="{{ $i }}">
 										Bensin 120 Km dan Makan Sopir x {{$i}} Hari : {{ formatUang($addon->addon_price * $i) }}
 									</option>
@@ -203,14 +205,14 @@
 								<div class="card-body">
 									<p class="card-text" style="color : #000;">Harga Total <br> Total price</p>
 									<p class="card-text">
-										<span id="total" style="color : #000;">{{ formatUang($product->price * $search['durasi']) }}</span>
+										<span id="total" style="color : #000;">{{ formatUang($product->price * $durasi) }}</span>
 									</p>
 									<button type="submit" class="btn btn-primary btn-lg btn-block" id="submit-post">Submit</button>
 								</div>
 								<div id="collapseOne" class="panel-collapse collapse in">
 									<div class="panel-body">
-										<input type="hidden" id="rentalDasarPlusHari" value="{{ $product->price * $search['durasi'] }}">
-										<input type="hidden" id="duration" value="{{ $search['durasi'] }}">
+										<input type="hidden" id="rentalDasarPlusHari" value="{{ $product->price * $durasi }}">
+										<input type="hidden" id="duration" value="{{ $durasi }}">
 
 										<ul class="list-group" id="listItemOrder"  style="color : #000;">
 											<li class="list-group-item d-flex justify-content-between align-items-center" style="color : #000;">
@@ -219,7 +221,7 @@
 											</li>
 											<li class="list-group-item d-flex justify-content-between align-items-center" style="color : #000;">
 												Rental dasar <br> Basic rental
-												<span id="rentalDasar" style="color : #000;">{{ formatUang($product->price * $search['durasi']) }}</span>
+												<span id="rentalDasar" style="color : #000;">{{ formatUang($product->price * $durasi) }}</span>
 											</li>
 											<!-- <li class="list-group-item d-flex justify-content-between align-items-center" id="zona1">
 
@@ -235,7 +237,7 @@
 											<div id="durasiContent" style="display:none"></div>
 											<li class="list-group-item d-flex justify-content-between align-items-center" style="color : #000;">
 												Durasi <br> Duration
-												<span class="total" style="color : #000;">{{ $search['durasi'] }} Hari / Days</span>
+												<span class="total" style="color : #000;">{{ $durasi }} Hari / Days</span>
 											</li>
 										</ul>
 

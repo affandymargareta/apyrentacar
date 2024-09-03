@@ -63,9 +63,9 @@
               <h5 style="margin: 0px 30px; padding-bottom: 25px; padding-top: 5px;">No. Pesanan: {{ $invoice }}</h5>
               <p style=" margin: 0px 30px; padding-bottom: 5px; line-height: 2; font-size: 15px;">Dear {{ $customer_name }}.
               </p>
-              <p style=" margin: 0px 30px; padding-bottom: 15px; line-height: 2; font-size: 15px;">Terima kasih telah memilih Apy Rent A Car sebagai mitra Anda. Pesanan yang Anda dapatkan adalah rental mobil dengan sopir. Berikut adalah detail pesanan Anda:.
+              <p style=" margin: 0px 30px; padding-bottom: 15px; line-height: 2; font-size: 15px;">Terima kasih telah memilih Apy Rent A Car sebagai mitra Anda. Pesanan yang Anda dapatkan adalah rental mobil tanpa supir. Berikut adalah detail pesanan Anda:.
               </p>
-              <h2 style="margin: 0px 30px; padding-bottom: 25px; line-height: 2; font-size: 15px;">Mohon untuk menghubungi penumpang 24 – 48 jam sebelum waktu jemput.</h2>
+              <h2 style="margin: 0px 30px; padding-bottom: 25px; line-height: 2; font-size: 15px;">Mohon untuk menghubungi 24 – 48 jam.</h2>
             </td>
           </tr>
          

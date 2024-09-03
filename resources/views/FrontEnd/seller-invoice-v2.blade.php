@@ -95,8 +95,8 @@
 		</tr>
 		<tr>
 			<td width="50%" >Durasi rental</td>
-			<td width="50%" > {{ date("D, d F Y", strtotime($mulai)) }} - {{$durasi}}
-			<br>{{ $hari }} days</td>
+			<td width="50%" > {{ date("D, d F Y", strtotime($mulai)) }} -  {{ date("D, d F Y", strtotime($akhir)) }}
+			<br>{{ $durasi }} days</td>
 		</tr>
 		<tr>
 			<td >Permintaan Khusus</td>
@@ -105,7 +105,7 @@
 		<tr>
 			<td width="50%" >Detail Inventor</td>
 			<td width="50%" >{{ date("D, d F Y", strtotime($mulai)) }} - Alokasi Reguler <br>
-			{{$durasi}} - Alokasi Reguler</td>
+			{{ date("D, d F Y", strtotime($akhir)) }} - Alokasi Reguler</td>
 		</tr>
 	</table>
 
@@ -225,17 +225,17 @@
 		</tr>
 		<tr>
 			<td style=" border-color: #FFC107;">{{ $product_name }}</td>
-			<td style=" border-color: #FFC107;">{{ $hari }}</td>
+			<td style=" border-color: #FFC107;">{{ $durasi }}</td>
 			<td style=" border-color: #FFC107;">{{ formatUang($product_price) }}</td>
-			<td style=" border-color: #FFC107;">{{ formatUang($product_price * $hari) }}</td>
+			<td style=" border-color: #FFC107;">{{ formatUang($product_price * $durasi) }}</td>
 		</tr>
 			@if ($jemputPrice > 0)
 				@if ($jemput_id != $product)
 				<tr>
 					<td style=" border-color: #FFC107;">Antar Luar Kota Zona {{ $jemputzona }}</td>
-					<td style=" border-color: #FFC107;">{{ $hari }}</td>
+					<td style=" border-color: #FFC107;">{{ $durasi }}</td>
 					<td style=" border-color: #FFC107;">{{ formatUang($jemputPrice) }}</td>
-					<td style=" border-color: #FFC107;">{{ formatUang($jemputPrice * $hari) }}</td>
+					<td style=" border-color: #FFC107;">{{ formatUang($jemputPrice * $durasi) }}</td>
 				</tr>	
 				@else
 
@@ -246,9 +246,9 @@
 				@if ($kembali_id != $product)
 				<tr>
 					<td style=" border-color: #FFC107;">Antar Luar Kota Zona {{ $Kembalizona}}</td>
-					<td style=" border-color: #FFC107;">{{ $hari }}</td>
+					<td style=" border-color: #FFC107;">{{ $durasi }}</td>
 					<td style=" border-color: #FFC107;">{{ formatUang($kembaliPrice) }}</td>
-					<td style=" border-color: #FFC107;">{{ formatUang($kembaliPrice  * $hari) }}</td>
+					<td style=" border-color: #FFC107;">{{ formatUang($kembaliPrice  * $durasi) }}</td>
 				</tr>
 				@else
 

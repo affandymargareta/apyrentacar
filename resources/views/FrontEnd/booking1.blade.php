@@ -94,6 +94,20 @@
 					</form>
 					@endif
 
+					
+					<ul class="list-group"  style="margin-top: 15px;">
+						<li class="list-group-item" style="background-color: rgba(0, 0, 0, 0.03); color : #000;">Syarat Rental Tanpa Supir</li>
+						<li class="list-group-item" style="color : #000;">SIM A/SIM Internasional</li>
+						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto SIM A atau SIM Internasional mereka.</li>
+						<li class="list-group-item" style="color : #000;">Foto Diri dengan KTP/Paspor</li>
+						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto diri dengan KTP/paspor mereka.</li>
+						<li class="list-group-item" style="color : #000;">e-KTP/paspor</li>
+						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto e-KTP/paspor mereka.</li>
+						<li class="list-group-item" style="color : #000;">Others (if provider requires additional verification)
+						Syarat tambahan seperti NPWP, kartu keluarga, dan/atau nama akun media sosial dapat diminta kepada pengemudi setelah pemesanan jika penyedia membutuhkan verifikasi tambahan.</li>
+						<li class="list-group-item" style="color : #000;">Bersedia Di Survey</li>
+					</ul>
+
 					<div class="card" style="margin-top: 15px;">
 						<div class="panel-group" id="accordion">
 							<div class="panel panel-default">

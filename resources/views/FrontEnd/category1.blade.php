@@ -106,13 +106,13 @@
 										<input type="hidden" class="form-control" name="wilayah" value="{{  $search['wilayah'] }}">
 										<input type="hidden" class="form-control" name="mulai" value="{{  $search['mulai'] }}">
 										<input type="hidden" class="form-control" name="akhir" value="{{  $search['akhir'] }}">
-										<input type="hidden" class="form-control" name="jumlahHari" value="{{  $jumlahHari }}">
+										<input type="hidden" class="form-control" name="durasi" value="{{  $totalHari }}">
 										<input type="hidden" class="form-control" name="jam_mulai" value="{{  $search['jam_mulai'] }}">
 										<input type="hidden" class="form-control" name="jam_akhir" value="{{  $search['jam_akhir'] }}">
 									<!-- <p class="btn-custom"><a href="">Order</a></p> -->
 									<div class="price-rate">
 									<h6>
-											<span class="num"> {{ formatUang($getData->price * $jumlahHari)}}</span>
+											<span class="num"> {{ formatUang($getData->price * $totalHari)}}</span>
 											<span class="num">/ Total Days</span>
 											
 										</h6>
