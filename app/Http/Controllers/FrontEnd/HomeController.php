@@ -20,6 +20,7 @@ use App\Models\User;
 use App\Models\Seller;
 use App\Models\AddOn;
 use Carbon\Carbon;
+use App\Models\ProductName;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -40,7 +41,7 @@ class HomeController extends Controller
     {   
         // $province = Province::orderBy('created_at', 'DESC')->get();
         $province = Province::orderBy('created_at', 'DESC')
-            ->whereIn('id', [6, 3, 9])
+            ->whereIn('id', [6])
             ->get();
 
         $Banner = Banner::orderBy('created_at', 'DESC')->get();
@@ -67,23 +68,29 @@ class HomeController extends Controller
      * @param  \App\Models\blog  $blog
      * @return \Illuminate\Http\Response
      */
-    public function CategorySearch1(Request $request)
+
+     
+    
+    public function CategorySearch1(Request $request, $id)
     {
-        //
-        // $time1 = Carbon::now()->timezone("Asia/Jakarta")->format("Y-m-d H:i:s");
-        // $formattime = $request->durasi -1;
-        // $time2 = Carbon::create($request->mulai)->addDays($formattime)->hour($request->jam)->addHour(2)->format("Y-m-d H:i:s");
-        // dd($time1, $time2);
-        // if($time1 < $time2) {
-        //     return redirect()->back()->with(['success' => 'Order Baru Ditambahkan']);
-        // } 
 
-        $city = City::where('city_name', $request->wilayah)->firstOrFail();
-        $province =$city->province;
+        $province = Province::where('province', $request->wilayah)->firstOrFail();
+        $provinceId = $province->id;
 
-        $product = TanpaSopir::where('wilayah',$province->id)->where('status', 1)->get();
+        $sellers = Seller::whereHas('tanpaSopirs', function ($query) use ($id, $provinceId) {
+            $query->where('name', $id)
+                  ->where('wilayah', $provinceId)
+                  ->where('status', 1)
+                  ->orderBy('price', 'asc'); // Order by price in ascending order
+
+        })->with(['tanpaSopirs' => function ($query) use ($id, $provinceId) {
+            $query->where('name', $id)
+                  ->where('wilayah', $provinceId)
+                  ->where('status', 1)
+                  ->orderBy('price', 'asc'); // Order by price in ascending order
+        }])->get();
+    
         
-        // Ambil durasi dalam hari dari request
         $totalHari = $request->durasi;
 
         $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
@@ -91,26 +98,30 @@ class HomeController extends Controller
         $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
 
         return view('FrontEnd.category1')->with([
-            'product' => $product,
+            'sellers' => $sellers,
             'search' => $search,
             'totalHari' => $totalHari,
         ]);
     }
-    public function CategorySearch2(Request $request)
+    
+    public function CategorySearch2(Request $request, $id)
     {
-        //
-        // $time1 = Carbon::now()->timezone("Asia/Jakarta")->format("Y-m-d H:i:s");
-        // $formattime = $request->durasi -1;
-        // $time2 = Carbon::create($request->mulai)->addDays($formattime)->hour($request->jam)->addHour(2)->format("Y-m-d H:i:s");
-        // dd($time1, $time2);
-        // if($time1 < $time2) {
-        //     return redirect()->back()->with(['success' => 'Order Baru Ditambahkan']);
-        // } 
 
-        $city = City::where('city_name', $request->wilayah)->firstOrFail();
-        $province =$city->province;
+        $province = Province::where('province', $request->wilayah)->firstOrFail();
+        $provinceId = $province->id;
+        
+        $sellers = Seller::whereHas('denganSopirs', function ($query) use ($id, $provinceId) {
+            $query->where('name', $id)
+                  ->where('wilayah', $provinceId)
+                  ->where('status', 1)
+                  ->orderBy('price', 'asc'); // Order by price in ascending order
 
-        $product = DenganSopir::where('wilayah',$province->id)->where('status', 1)->get();
+        })->with(['denganSopirs' => function ($query) use ($id, $provinceId) {
+            $query->where('name', $id)
+                  ->where('wilayah', $provinceId)
+                  ->where('status', 1)
+                  ->orderBy('price', 'asc'); // Order by price in ascending order
+        }])->get();
 
         // Ambil durasi dalam hari dari request
         $totalHari = $request->durasi -1;
@@ -122,7 +133,110 @@ class HomeController extends Controller
         $Hari = $request->durasi;
 
         return view('FrontEnd.category2')->with([
-            'product' => $product,
+            'sellers' => $sellers,
+            'search' => $search,
+            'Hari' => $Hari
+        ]);
+    }
+
+    public function ProvidedSearch1(Request $request)
+    {
+        $request->validate([
+            'wilayah' => 'required',
+            'mulai' => 'required',
+            'durasi' => 'required',
+            'jam_mulai' => 'required',
+            'jam_akhir' => 'required',
+        ]);
+        // Retrieve the city and province
+        $province = Province::where('province', $request->wilayah)->firstOrFail();
+        $provinceId = $province->id;
+        // Retrieve all product names
+        $productNames = ProductName::all();
+
+        // Create an array to store the result
+        $result = [];
+
+        foreach ($productNames as $productName) {
+            // Get the product with the lowest price for each product name
+            $lowestPricedProduct = TanpaSopir::where('name', $productName->id)
+                ->when($provinceId, function ($query, $provinceId) {
+                    return $query->where('wilayah', $provinceId);
+                })
+                ->where('status', 1)
+                ->orderBy('price', 'asc')
+                ->first();
+
+            if ($lowestPricedProduct) {
+                $result[] = [
+                    'product_name' => $productName->name,
+                    'name_id' => $productName->id,
+                    'lowest_priced_product' => $lowestPricedProduct,
+                ];
+            }
+        }
+
+        // Ambil durasi dalam hari dari request
+        $totalHari = $request->durasi;
+
+        $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
+
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
+
+        return view('FrontEnd.provided1')->with([
+            'names' => $result,
+            'search' => $search,
+            'totalHari' => $totalHari,
+        ]);
+    }
+    public function ProvidedSearch2(Request $request)
+    {
+        $request->validate([
+            'wilayah' => 'required',
+            'mulai' => 'required',
+            'durasi' => 'required',
+            'jam_mulai' => 'required',
+            'jam_akhir' => 'required',
+        ]);
+        // Retrieve the city and province
+        $province = Province::where('province', $request->wilayah)->firstOrFail();
+        $provinceId = $province->id;
+        // Retrieve all product names
+        $productNames = ProductName::all();
+
+        // Create an array to store the result
+        $result = [];
+
+        foreach ($productNames as $productName) {
+            // Get the product with the lowest price for each product name
+            $lowestPricedProduct = DenganSopir::where('name', $productName->id)
+                ->when($provinceId, function ($query, $provinceId) {
+                    return $query->where('wilayah', $provinceId);
+                })
+                ->where('status', 1)
+                ->orderBy('price', 'asc')
+                ->first();
+
+            if ($lowestPricedProduct) {
+                $result[] = [
+                    'product_name' => $productName->name,
+                    'name_id' => $productName->id,
+                    'lowest_priced_product' => $lowestPricedProduct,
+                ];
+            }
+        }
+
+        // Ambil durasi dalam hari dari request
+        $totalHari = $request->durasi -1;
+
+        $akhir = date_create($request->mulai)->modify("+{$totalHari} days")->format('Y-m-d');
+
+        $search = ['wilayah' => $request->wilayah, 'mulai' => $request->mulai, 'akhir' => $akhir,'jam_mulai' => $request->jam_mulai,'jam_akhir' => $request->jam_akhir];
+        
+        $Hari = $request->durasi;
+
+        return view('FrontEnd.provided2')->with([
+            'names' => $result,
             'search' => $search,
             'Hari' => $Hari
         ]);
@@ -143,13 +257,13 @@ class HomeController extends Controller
     public function getCityPrice1()
     {
 
-        $cities = CityPrice::where('province_id', request()->jemput_id)->where('product_id', request()->product_id)->get();
+        $cities = CityPrice::where('province_id', request()->provinces1_id)->where('product_id', request()->product_id)->get();
         return response()->json(['status' => 'success', 'data' => $cities]);
     }
     public function getCityPrice2()
     {
 
-        $cities = CityPrice::where('province_id', request()->kembali_id)->where('product_id', request()->product_id)->get();
+        $cities = CityPrice::where('province_id', request()->provinces2_id)->where('product_id', request()->product_id)->get();
         return response()->json(['status' => 'success', 'data' => $cities]);
     }
 
@@ -180,6 +294,10 @@ class HomeController extends Controller
             ->whereIn('id', [6, 3, 9])
             ->get();
 
+        $city = City::orderBy('created_at', 'DESC')
+        ->whereIn('province_id', [6, 3, 9])
+        ->get();
+
         $product = DenganSopir::where('id', $id)->where('status', 1)->firstOrFail();
 
 
@@ -199,6 +317,7 @@ class HomeController extends Controller
             'provinces' => $provinces,
             'durasi' => $durasi,
             'addon' => $addon,
+            'city' => $city,
 
         ]);
     }
@@ -359,7 +478,7 @@ class HomeController extends Controller
         }
 
 
-        $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
+        $kembalibanding = Province::orderBy('created_at', 'DESC')->where('province', $orderID->wilayah)->first();
 
         if($kembalibanding->province_id != $orderID->jemput_id) {
             $jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();
@@ -549,7 +668,7 @@ class HomeController extends Controller
 			$lokasi_kembali_lengkap = '';
         }
 
-        $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
+        $kembalibanding = Province::orderBy('created_at', 'DESC')->where('province', $orderID->wilayah)->first();
 
         if($kembalibanding->province_id != $orderID->jemput_id) {
 			$jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();

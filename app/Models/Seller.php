@@ -57,5 +57,13 @@ class Seller extends Authenticatable
     {
         return $this->belongsTo(Province::class,'city');
     }
+    public function tanpaSopirs()
+    {
+        return $this->hasMany(TanpaSopir::class, 'seller_id');
+    }
+    public function denganSopirs()
+    {
+        return $this->hasMany(DenganSopir::class, 'seller_id');
+    }
 
 }

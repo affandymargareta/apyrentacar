@@ -8923,6 +8923,10 @@ h1, h2, h3, h4,
         font-size: 13px; 
         /* margin-right: -300px; */
       }
+      .table tbody tr td.product-name3 h3 {
+        font-size: 13px; 
+        /* margin-right: -300px; */
+      }
     }
 
     /* Small devices (portrait tablets and large phones, 600px and up) */
@@ -8932,6 +8936,10 @@ h1, h2, h3, h4,
         margin-right: -250px;
       }
       .table tbody tr td.product-name2 h3 {
+        font-size: 13px; 
+        /* margin-right: -300px; */
+      }
+      .table tbody tr td.product-name3 h3 {
         font-size: 13px; 
         /* margin-right: -300px; */
       }
@@ -8954,6 +8962,11 @@ h1, h2, h3, h4,
         margin-left: -240px;
         font-size: 14px; 
       }
+      .table tbody tr td.product-name3 h3 {
+        font-size: 16px; 
+        margin-left: -108px;
+        font-size: 14px; 
+      }
     } 
 
     /* Large devices (laptops/desktops, 992px and up) */
@@ -8972,6 +8985,10 @@ h1, h2, h3, h4,
         font-size: 16px; 
         margin-left: -260px;
       }
+      .table tbody tr td.product-name3 h3 {
+        font-size: 16px; 
+        margin-left: -168px;
+      }
     } 
 
     /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -8989,6 +9006,10 @@ h1, h2, h3, h4,
       .table tbody tr td.product-name2 h3 {
         font-size: 16px; 
         margin-left: -330px;
+      }
+      .table tbody tr td.product-name3 h3 {
+        font-size: 16px; 
+        margin-left: -205px;
       }
     }
     /* Extra large devices (large laptops and desktops, 1200px and up) */

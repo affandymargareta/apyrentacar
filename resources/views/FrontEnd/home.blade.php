@@ -65,7 +65,7 @@
                     </ul>
                     <div class="tab-content" id="pills-tabContent">
                       <div class="tab-pane fade " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-                      <form method="get" action="{{ route('searching1') }}" enctype="multipart/form-data">
+                      <form method="get" action="{{ route('provided1') }}" enctype="multipart/form-data">
                           <!-- @method('GET') -->
 
                             <h2>Make your trip Tanpa Supir</h2>
@@ -74,11 +74,8 @@
                                 <label class="form-control">Lokasi Anda / Your location</label>
                                 <select name="wilayah" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                                     <option value="">Pilih</option>
-                                    @foreach ($province as $rows)
-                                     @foreach ($rows->city as $row)
-                                      <option value="{{ $row->city_name }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->city_name }}</option>
-                                      @endforeach
-
+                                    @foreach ($province as $row)
+                                      <option value="{{ $row->province }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->province }}</option>
                                     @endforeach
                                 </select>                                
                               </div>
@@ -113,7 +110,7 @@
 
                       </div>
                       <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                      <form method="get" action="{{ route('searching2') }}" enctype="multipart/form-data">
+                      <form method="get" action="{{ route('provided2') }}" enctype="multipart/form-data">
                           <!-- @method('GET') -->
 
                             <h2>Make your trip Dengan Supir</h2>
@@ -122,11 +119,8 @@
                                 <label class="form-control">Lokasi Anda / Your location</label>
                                 <select name="wilayah" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                                     <option value="">Pilih</option>
-                                    @foreach ($province as $rows)
-                                     @foreach ($rows->city as $row)
-                                      <option value="{{ $row->city_name }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->city_name }}</option>
-                                      @endforeach
-
+                                    @foreach ($province as $row)
+                                      <option value="{{ $row->province }}" {{ old('wilayah') == $row->id ? 'selected':'' }}>{{ $row->province }}</option>
                                     @endforeach
                                 </select>                                
                               </div>

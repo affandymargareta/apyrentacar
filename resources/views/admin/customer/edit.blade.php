@@ -156,7 +156,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('customers') }}">
+                  <a class="nav-link" href="{{ route('acustomer.index') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
@@ -238,25 +238,6 @@
                         <input type="text" class="form-control" name="facebook" value="{{ $customer->facebook }}">
                         <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
                       </div>
-
-                      <div class="form-group" style="color: #fff;">
-                        <label >Customer Name</label>
-                        <input type="text" class="form-control" name="customer_name" value="{{ $customer->customer_name }}">
-                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
-                      </div>
-                      
-                      <div class="form-group" style="color: #fff;">
-                        <label >Customer Telpon</label>
-                        <input type="text" class="form-control" name="customer_telpon" value="{{ $customer->customer_telpon }}">
-                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
-                      </div>
-
-                      <div class="form-group" style="color: #fff;">
-                        <label >Customer Email</label>
-                        <input type="text" class="form-control" name="customer_email" value="{{ $customer->customer_email }}">
-                        <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
-                      </div>
-                     
                       
                       <div class="form-group form-check" style="color: #fff;">
                         <input type="checkbox" class="form-check-input" id="exampleCheck1">

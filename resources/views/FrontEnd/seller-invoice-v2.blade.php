@@ -159,7 +159,7 @@
 			</tr>
 			<tr>
 				<td width="50%" >Tanggal & waktu Pengantaran </td>
-				<td width="50%" > {{$durasi}} •  {{$jam_akhir}} GMT+7</td>
+				<td width="50%" >{{ date("D, d F Y", strtotime($akhir)) }} •  {{$jam_akhir}} GMT+7</td>
 			</tr>
 			<tr>
 				<td width="50%" >Lokasi Pengantaran</td>
@@ -173,7 +173,7 @@
 			</tr>
 			<tr>
 				<td width="50%" >Tanggal & waktu Pengantaran </td>
-				<td width="50%" > {{$durasi}} •  {{$jam_akhir}} GMT+7</td>
+				<td width="50%" >{{ date("D, d F Y", strtotime($akhir)) }} •  {{$jam_akhir}} GMT+7</td>
 			</tr>
 			<tr>
 				<td width="50%" >Lokasi Pengantaran</td>

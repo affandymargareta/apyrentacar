@@ -156,7 +156,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('acustomer') }}">
+                  <a class="nav-link" href="{{ route('acustomer.index') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
@@ -230,7 +230,7 @@
                       <div class="form-group" style="color: #000;">
                         <label >Name</label>
                         <label >Province Id</label>
-                        <select name="wilayah" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
+                        <select name="province_id" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
                             <option value="{{ $city->province_id }}">{{ $city->province_id }}</option>
                         </select>  
                         <small class="form-text text-muted">We'll never share your Name with anyone else.</small>

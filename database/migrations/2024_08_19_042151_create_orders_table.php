@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->string('invoice')->unique();
+            $table->text('invoice')->unique();
             $table->text('wilayah');
-            $table->string('fitur')->nullable();
+            $table->text('fitur')->nullable();
             $table->text('product_id');
             $table->text('price');
             $table->text('addon_price')->nullable();

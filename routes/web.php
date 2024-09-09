@@ -9,6 +9,7 @@ use App\Http\Controllers\FrontEnd\TanpaSopirCartController;
 use App\Http\Controllers\FrontEnd\TanpaSopirOrderController;
 use App\Http\Controllers\FrontEnd\DenganSopirOrderController;
 use App\Http\Controllers\FrontEnd\PaymentController;
+use App\Http\Controllers\FrontEnd\RatingController;
 
 use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\BannerController;
@@ -123,8 +124,14 @@ Route::middleware('auth:admin')->group(function () {
     Route::get('/users/invoice/detail/{id}', [HomeController::class, 'InvoiceDetail'])->name('users.invoice');
     
     /////
-    Route::get('searchv1', [HomeController::class, 'CategorySearch1'])->name('searching1');
-    Route::get('searchv2', [HomeController::class, 'CategorySearch2'])->name('searching2');
+    Route::get('/searchv1/{id}', [HomeController::class, 'CategorySearch1'])->name('searching1');
+    Route::get('/searchv2/{id}', [HomeController::class, 'CategorySearch2'])->name('searching2');
+
+    Route::get('provided1', [HomeController::class, 'ProvidedSearch1'])->name('provided1');
+    Route::get('provided2', [HomeController::class, 'ProvidedSearch2'])->name('provided2');
+
+    Route::post('/ratings/{product}', [RatingController::class, 'store'])->name('ratings.store');
+
 
     Route::get('/cars/v1/detail/{id}', [HomeController::class, 'CarDetail1'])->name('cardetail1');
     Route::get('/cars/v2/detail/{id}', [HomeController::class, 'CarDetail2'])->name('cardetail2');
@@ -138,6 +145,7 @@ Route::middleware('auth:admin')->group(function () {
 
     Route::post('/orders1', [TanpaSopirOrderController::class, 'store'])->name('orders1.store');
     Route::post('/orders2', [DenganSopirOrderController::class, 'store'])->name('orders2.store');
+
 
     
     /*

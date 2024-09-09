@@ -123,6 +123,9 @@ php artisan make:model --migration --controller Company --resource
 
 php artisan make:model --migration --controller CityPrice
 
+php artisan make:model --migration --controller Rating
+
+
 composer self-update
 php artisan clear-compiled 
 composer dump-autoload

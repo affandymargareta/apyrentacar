@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\City;
+use App\Models\Province;
 use Illuminate\Support\Str;
 
 class CityController extends Controller
@@ -21,7 +22,15 @@ class CityController extends Controller
         $city = City::orderBy('created_at', 'DESC')
         ->get();
 
-        return view('admin.city.table', compact('city'));
+        $province = Province::orderBy('created_at', 'DESC')
+            ->whereIn('id', [6, 3, 9])
+            ->get();
+
+        return view('admin.city.table')->with([
+            'city' => $city,
+            'province' => $province,
+
+        ]);
     }
 
     /**
@@ -86,9 +95,13 @@ class CityController extends Controller
     public function edit($id)
     {
         $city = City::find($id);
-
+        $province = Province::orderBy('created_at', 'DESC')
+            ->whereIn('id', [6, 3, 9])
+            ->get();
         return view('admin.city.edit')->with([
             'city' => $city,
+            'province' => $province,
+
         ]);
     }
     

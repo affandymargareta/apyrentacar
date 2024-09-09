@@ -31,48 +31,53 @@ class DenganSopirCartController extends Controller
     {
 
         // Handle the user upload of avatar
-        $request->validate([
-            'wilayah' => 'required',
-            'jemput_id' => 'required',
-            'lokasi_jemput' => 'required',
-            'mulai' => 'required',
-            'akhir' => 'required',
-            'durasi' => 'required',
-            'jam_mulai' => 'required',
-            'jam_akhir' => 'required',
-            'product_id' => 'required',
-        ]);
+        // $request->validate([
+        //     'wilayah' => 'required',
+        //     'jemput_id' => 'required',
+        //     'lokasi_jemput' => 'required',
+        //     'mulai' => 'required',
+        //     'akhir' => 'required',
+        //     'durasi' => 'required',
+        //     'jam_mulai' => 'required',
+        //     'jam_akhir' => 'required',
+        //     'product_id' => 'required',
+        // ]);
 
         // dd($request->all());
 
         $product = DenganSopir::where('id', $request->product_id)->with(['province'])->firstOrFail();
+        // Pisahkan jemput_id menjadi province_id dan city_id
+        list($provinceId1, $cityId1) = explode(',', $request->jemput_id);
 
-        if($product->wilayah != $request->jemput_id) {
-            $JemputPrice = CityPrice::where('province_id', $request->jemput_id)->where('product_id', $product->name)->first();
+        if($product->wilayah != $provinceId1) {
+            $JemputPrice = CityPrice::where('province_id', $provinceId1)->where('product_id', $product->name)->first();
             $JemputPrice1 = $JemputPrice->price;
         } else {
             $JemputPrice1 = 0;
         }
 
-        if(!empty($request->kembali_id)){
+        list($provinceId2, $cityId2) = explode(',', $request->kembali_id);
 
-            if($product->wilayah != $request->kembali_id) {
-                $KembaliPrice = CityPrice::where('province_id', $request->kembali_id)->where('product_id', $product->name)->first();
+
+        if(!empty($provinceId2)){
+
+            if($product->wilayah != $provinceId2) {
+                $KembaliPrice = CityPrice::where('province_id', $provinceId2)->where('product_id', $product->name)->first();
                 $KembaliPrice2 = $KembaliPrice->price;
-                $kembali_id = $request->kembali_id;
-                $lokasi_kembali = $request->lokasi_kembali;
+                $kembali_id = $provinceId2;
+                $lokasi_kembali = $cityId2;
                 $lokasi_kembali_lengkap = $request->lokasi_kembali_lengkap;
             } else {
                 $KembaliPrice2 = 0;
-                $kembali_id = $request->kembali_id ?? '';
-                $lokasi_kembali = $request->lokasi_kembali ?? '';
+                $kembali_id = $provinceId2 ?? '';
+                $lokasi_kembali = $cityId2 ?? '';
                 $lokasi_kembali_lengkap = $request->lokasi_kembali_lengkap ?? '';
             }
 
         }else {
             $KembaliPrice2 = 0;
-            $kembali_id = $request->kembali_id ?? '';
-            $lokasi_kembali = $request->lokasi_kembali ?? '';
+            $kembali_id = $provinceId2 ?? '';
+            $lokasi_kembali = $cityId2 ?? '';
             $lokasi_kembali_lengkap = $request->lokasi_kembali_lengkap ?? '';
         }
 
@@ -100,8 +105,8 @@ class DenganSopirCartController extends Controller
                 'addon_price' => $addonprice,
                 'addon_hari' => $request->addon_hari,
                 'biaya_aplikasi' => $request->biaya_aplikasi,
-                'jemput_id' => $request->jemput_id,
-                'lokasi_jemput' => $request->lokasi_jemput,
+                'jemput_id' => $provinceId1,
+                'lokasi_jemput' =>  $cityId1,
                 'lokasi_jemput_lengkap' => $request->lokasi_jemput_lengkap,
                 'kembali_id' => $kembali_id,
                 'lokasi_kembali' => $lokasi_kembali,
@@ -114,6 +119,7 @@ class DenganSopirCartController extends Controller
                 'product_id' => $product->id,
                 'price' => $total,
             ]);
+        // dd($request->all());
 
             // dd($cart);
 

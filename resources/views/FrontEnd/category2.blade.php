@@ -41,15 +41,16 @@
 									<td class="car-image">
 										<!-- <div class="img" style="background-image:url({{ asset('images/bg_1.jpg') }});"></div> -->
 									</td>
-								  <td class="product-name2">
+								  <td class="product-name3">
 								
 									  <div class="price-rate">
 										<h3>
 											<span class="subheading3">Rental Mobil</span>
-											<span class="subheading2">: Dengan Sopir / With Driver</span>
+											<span class="subheading2">: Dengan Sopir</span>
 										</h3>
 									</div>
-									  <h3>Rental Mobil Dengan Supir / Rent A Car With Driver</h3>
+									  <h3>Rental Mobil Dengan Supir / Rent A Car Without Driver
+									  </h3>
 
 									  <div class="price-rate">
 										  <h3>
@@ -71,37 +72,35 @@
 								  <td>&nbsp;</td>
 								  <td>&nbsp;</td>
 								</tr>
-								@foreach ($product as $getData)
-
+							@foreach($sellers as $seller)
+							@foreach($seller->denganSopirs as $denganSopir)
 						      <tr class="" style="  border: 2px solid #17a2b8">
-						      	<td class="car-image"><div class="img" style="background-image:url({{ asset($getData->productImages->image) }});"></div></td>
+								<!-- <td class="car-image"><div class="img" style="background-image:url({{ asset($denganSopir->productImages->image) }});"></div></td> -->
 						        <td class="product-name">
-									<h3>{{ $getData->productName->name }}</h3>
-
-						        	<h3>Disediakan / Provided By {{ $getData ->seller->name }}</h3>
-									
-									<div class="price-rate">
+									<h3 style="margin-left: 18px;">{{ $seller->name }}</h3>	
+									<h3 style="margin-left: 18px;">{{ $denganSopir->productName->name }}</h3>																	
+									<!-- <div class="price-rate">
 							        	<h3>
-							        		<span class="subheading1"><span class="flaticon-pistons subheading2"></span class="">{{ $getData ->jenis }}</span>
+							        		<span class="subheading1"><span class="flaticon-pistons subheading2"></span class=""></span>
 							        	</h3>
 							        </div>
 									<div class="price-rate">
 							        	<h3>
-							        		<span class="subheading1"><span class="flaticon-car-seat subheading2"></span class=""> {{ $getData ->bagasi }} Bag</span>
-											<span class="subheading1"><span class="flaticon-backpack subheading2"></span class=""> {{ $getData ->kursi }} Seat</span>
+							        		<span class="subheading1"><span class="flaticon-car-seat subheading2"></span class=""> </span>
+											<span class="subheading1"><span class="flaticon-backpack subheading2"></span class=""> </span>
 							        	</h3>
 									</div>
 									<div class="price-rate">
 							        	<h3>
-							        		<!-- <span class="subheading3">Tanpa Sopir</span> -->
-							        		<span class="subheading2">With Driver / {{ $getData ->stock }} Stock Providers Available</span>
+							        		 <span class="subheading3">Tanpa Sopir</span>
+							        		<span class="subheading2">With Driver /  Stock Providers Available</span>
 							        	</h3>
-						        	</div>
+						        	</div> -->
 						        </td>
 								<td>&nbsp;</td>
 								<td>&nbsp;</td>
 								<td class="prices">
-									<form action="{{route('cardetail2',$getData->id)}}" method="get" enctype="multipart/form-data">
+									<form action="{{route('cardetail2',$denganSopir->id)}}" method="get" enctype="multipart/form-data">
 										<input type="hidden" class="form-control" name="wilayah" value="{{  $search['wilayah'] }}">
 										<input type="hidden" class="form-control" name="mulai" value="{{  $search['mulai'] }}">
 										<input type="hidden" class="form-control" name="akhir" value="{{  $search['akhir'] }}">
@@ -111,13 +110,13 @@
 									<!-- <p class="btn-custom"><a href="">Order</a></p> -->
 									<div class="price-rate">
 									<h6>
-											<span class="num"> {{ formatUang($getData->price * $Hari)}}</span>
+											<span class="num"> {{ formatUang($denganSopir->price * $Hari)}}</span>
 											<span class="num">/ Total Days</span>
 											
 										</h6>
 										<h6>
 											
-											<span class="num"> {{ formatUang($getData->price)}}</span>
+											<span class="num"> {{ formatUang($denganSopir->price)}}</span>
 											<span class="num">/ Days</span>
 										</h6>
 										<button type="submit" class="form-control btn btn-primary">Order</button>
@@ -126,7 +125,7 @@
 								</td>
 						      </tr>
 							  @endforeach
-
+							@endforeach
 							  <!-- END TR-->
 						    </tbody>
 						  </table>
@@ -140,7 +139,5 @@
 
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
-
-
-
 @endsection
+

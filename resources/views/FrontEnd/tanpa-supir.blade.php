@@ -77,13 +77,13 @@
 							<h5 class="card-title" style="color : #000; color : #000;">Kebijakan Rental</h5>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item" style="color : #000;">Return the fuel as received.</li>
-								<li class="list-group-item" style="color : #000;">Penggunaan hingga 24 jam per hari rental.</li>
-								<li class="list-group-item" style="color : #000;">Bisa Refund.</li>
+								<li class="list-group-item" style="color : #000;">Penggunaan hingga 24 jam setiap hari rental.</li>
+								<!--<li class="list-group-item" style="color : #000;">Bisa Refund.</li>-->
 								<li class="list-group-item" style="color : #000;">Verifikasi Mudah.</li>
 								<li class="list-group-item" style="color : #000;">Pengemudi hanya perlu membagikan ke penyedia berupa foto KTP, foto SIM A, dan swafoto dengan KTP.</li>
 
 							</ul>
-							<h5 class="card-title" style="margin-top: 80px; color : #000;">Informasi Penting</h5>
+							<h5 class="card-title" style="margin-top: 20px; color : #000;">Informasi Penting</h5>
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item" style="color : #000;">Sebelum Anda pesan</li>
 								<li class="list-group-item" style="color : #000;">Pastikan untuk membaca syarat rental</li>
@@ -92,50 +92,22 @@
 								<li class="list-group-item" style="color : #000;">Saat pengambilan.</li>
 								<li class="list-group-item" style="color : #000;">Bawa KTP, SIM A, dan dokumen-dokumen lain yang dibutuhkan oleh penyedia rental..</li>
 								<li class="list-group-item" style="color : #000;">Saat Anda bertemu dengan staf rental, cek kondisi mobil dengan staf.</li>
-								<li class="list-group-item" style="color : #000;">Saat Anda bertemu dengan staf rental, cek kondisi mobil dengan staf.</li>
-								<li class="list-group-item" style="color : #000;">Biaya parkir & tol.</li>
+
 								<li class="list-group-item" style="color : #000;">Biaya parkir & tol.</li>
 
 							</ul>
-						</div>
-					</div>
-					<div class="card" style="background : rgb(158 158 158 / 40%) ">
-					<div class="card-body">
-							<div class="col-md-5 mt-5">
-								<img src="{{ asset('images/zona.webp') }}" class="card-img" alt="...">
-							</div>
-							<div class="col-md-7 mt-5">
-								<div class="card-body">
-									<div class="d-flex">
-										<!-- <span class="cat">Price</span> -->
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;"> Dalam Kota</p>
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;">Cikarang Barat, Marunda – Cilincing, Cibubur, Cinere, Depok, Sentul, Ah Poong Sentul, Cilebut (Stasiun Cilebut), Angke, IKEA
-										</p>
-									</div>
-									<h5 class="card-title" style="font-size: 12px; color : #000;">Luar Kota</h5>
-									<p class="card-text" style="font-size: 12px; color : #000;">PENTING: Biaya tambahan berlaku untuk perjalanan di luar area biru.</p>
-									<div class="d-flex">
-										<!-- <span class="cat">Price</span> -->
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;">Zona 1</p>
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;">Area 0 + Purwakarta, Kota Bogor, Kebun Raya Bogor, Ciawi, Cisarua (Masjid At-tawun/Taman Safari), Caringin Bogor (Bestcamp Arung Jeram/Paint Ball), Banten, Serang City, Rangkas Blitung, Leuwiliang, Tangerang.
-										</p>
-									</div>
-									<div class="d-flex">
-										<!-- <span class="cat">Price</span> -->
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;">Zone 2</p>
-										<p class="price1 ml-2" style="font-size: 12px; color : #000;">Area 0 + Area 1 + Subang, Bandung (Kawah Putih Pulomerak (Bakauheni – Merak), Anyer, Labuhan Pandeglang, Sukabumi, Cimangu, Cilegon, Kota/Kec. Cianjur.
-											.</p>
-									</div>
-								</div>
-								<ul class="list-group list-group-flush">
-								<li class="list-group-item" style="color : #000;">Pick-up and drop-off outside the rental office is available with an additional fee. 
-								</li>
-								<li class="list-group-item" style="color : #000;">The amount depends on the distance between the rental office and your desired location. </li>
-								<li class="list-group-item" style="color : #000;">Tap Continue below to enter your pick-up and drop-off locations and see the fees.
-								.</li>
-
-							</ul>
-							</div>
+							<h5 class="card-title" style="margin-top: 20px; color : #000;">Syarat Rental Tanpa Supir</h5>
+							<ul class="list-group list-group-flush">
+        						<li class="list-group-item" style="color : #000;">SIM A/SIM Internasional</li>
+        						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto SIM A atau SIM Internasional mereka.</li>
+        						<li class="list-group-item" style="color : #000;">Foto Diri dengan KTP/Paspor</li>
+        						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto diri dengan KTP/paspor mereka.</li>
+        						<li class="list-group-item" style="color : #000;">e-KTP/paspor</li>
+        						<li class="list-group-item" style="color : #000;">Pengemudi harus membagikan kepada penyedia foto e-KTP/paspor mereka.</li>
+        						<li class="list-group-item" style="color : #000;">Others (if provider requires additional verification)
+        						Syarat tambahan seperti NPWP, kartu keluarga, dan/atau nama akun media sosial dapat diminta kepada pengemudi setelah pemesanan jika penyedia membutuhkan verifikasi tambahan.</li>
+        						<li class="list-group-item" style="color : #000;">Bersedia Di Survey</li>
+        					</ul>
 						</div>
 					</div>
 					<!-- <div class="card" style="margin-top: 15px; background : rgb(158 158 158 / 40%);">

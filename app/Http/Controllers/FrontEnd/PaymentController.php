@@ -14,6 +14,7 @@ use App\Models\City;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use App\Models\Province;
 
 class PaymentController extends Controller
 {
@@ -200,9 +201,9 @@ class PaymentController extends Controller
                     $lokasi_kembali_lengkap = '';
                 }
         
-                $kembalibanding = City::orderBy('created_at', 'DESC')->where('city_name', $orderID->wilayah)->first();
+                $kembalibanding = Province::orderBy('created_at', 'DESC')->where('province', $orderID->wilayah)->first();
         
-                if($kembalibanding->province_id != $orderID->jemput_id) {
+                if($kembalibanding->id != $orderID->jemput_id) {
                     $jemput = CityPrice::where('province_id', $orderID->jemput_id)->where('product_id', $product->name)->first();
                     $jemputPrice = $jemput->price ?? '';
                     $jemputzona = $jemput->zona ?? '';
@@ -213,7 +214,7 @@ class PaymentController extends Controller
         
                 if(!empty($orderID->kembali_id)){
         
-                    if($kembalibanding->province_id != $orderID->kembali_id) {
+                    if($kembalibanding->id != $orderID->kembali_id) {
                         $Kembali = CityPrice::where('province_id', $orderID->kembali_id)->where('product_id', $product->name)->first();
                         $kembaliPrice = $Kembali->price ?? '';
                         $Kembalizona = $Kembali->zona ?? '';

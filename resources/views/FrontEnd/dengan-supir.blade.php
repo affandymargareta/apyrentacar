@@ -126,17 +126,17 @@
 							<h6 class="card-subtitle mb-2 text-muted" style="color : #000;">Pilih lokasi penjemputan <br> Select a pick-up location </h6>
 							<select class="form-control" name="jemput_id" id="jemput_id" required>
 								<option value="">Pilih Propinsi</option>
-								@foreach ($provinces as $row)
-								<option value="{{ $row->id }}">{{ $row->province }}</option>
+								@foreach ($city as $row)
+								<option value="{{ $row->province_id }},{{ $row->id }}">{{ $row->city_name }}</option>
 								@endforeach
 							</select>
 
-							<div class="form-group mt-2">
+							<!-- <div class="form-group mt-2">
 								<h6 class="card-subtitle mb-2 text-muted" style="color : #000;">Pilih lokasi penjemputan <br> Select a pick-up location</h6>
 								<select class="form-control" name="lokasi_jemput" id="lokasi_jemput" required>
 									<option value="">Pilih Kabupaten/Kota</option>
 								</select>
-							</div>
+							</div> -->
 							<div class="form-group mt-2">
 								<label for="formGroupExampleInput" style="color : #000;">Alamat Lengkap*</label>
 								<input type="text" name="lokasi_jemput_lengkap" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>
@@ -151,17 +151,17 @@
 							<h6 class="card-subtitle mb-2 text-muted" style="color : #000;">Pilih lokasi Pengantaran <br> Select a delivery location </h6>
 							<select class="form-control" name="kembali_id" id="kembali_id">
 								<option value="" style="color : #000;">Pilih Propinsi</option>
-								@foreach ($provinces as $row)
-								<option value="{{ $row->id }}">{{ $row->province }}</option>
+								@foreach ($city as $row)
+								<option value="{{ $row->province_id }},{{ $row->id }}">{{ $row->city_name }}</option>
 								@endforeach
 							</select>
 
-							<div class="form-group mt-2">
+							<!-- <div class="form-group mt-2">
 								<h6 class="card-subtitle mb-2 text-muted" style="color : #000;">Pilih lokasi Pengantaran <br> Select a delivery location </h6>
 								<select class="form-control" name="lokasi_kembali" id="lokasi_kembali">
 									<option value="">Pilih Kabupaten/Kota</option>
 								</select>
-							</div>
+							</div> -->
 							<div class="form-group mt-2">
 								<label for="formGroupExampleInput" style="color : #000;">Alamat Lengkap*</label>
 								<input type="text"  name="lokasi_kembali_lengkap" class="form-control" id="formGroupExampleInput" placeholder="Example input" required>
@@ -283,32 +283,36 @@
 		hitungTotal();
 	});
 
-	$('#jemput_id').on('change', function() {
+	// $('#jemput_id').on('change', function() {
 
 		
-		$.ajax({
-			url: "{{ url('/api/city1') }}",
-			type: "GET",
-			data: {
-				jemput_id: $(this).val()
-			},
-			success: function(html) {
+	// 	$.ajax({
+	// 		url: "{{ url('/api/city1') }}",
+	// 		type: "GET",
+	// 		data: {
+	// 			jemput_id: $(this).val()
+	// 		},
+	// 		success: function(html) {
 
-				$('#lokasi_jemput').empty()
-				$('#lokasi_jemput').append('<option value="">Pilih Kabupaten/Kota</option>')
-				$.each(html.data, function(key, item) {
-					$('#lokasi_jemput').append('<option value="' + item.id + '">' + item.city_name + '</option>')
-				})
-			}
-		});
-	});
+	// 			$('#lokasi_jemput').empty()
+	// 			$('#lokasi_jemput').append('<option value="">Pilih Kabupaten/Kota</option>')
+	// 			$.each(html.data, function(key, item) {
+	// 				$('#lokasi_jemput').append('<option value="' + item.id + '">' + item.city_name + '</option>')
+	// 			})
+	// 		}
+	// 	});
+	// });
 
 	$('#jemput_id').on('change', function() {
+
+		const jemput_id = $(this).val().split(',');
+		const provinces1_id = jemput_id[0];
+
 		$.ajax({
 			url: "{{ url('/api/cityprice1') }}",
 			type: "GET",
 			data: {
-				jemput_id: $(this).val(),
+				provinces1_id: provinces1_id,
 				product_id: product_id,
 			},
 			success: function(html) {
@@ -328,30 +332,34 @@
 		});
 	});
 
-	$('#kembali_id').on('change', function() {
-		$.ajax({
-			url: "{{ url('/api/city2') }}",
-			type: "GET",
-			data: {
-				kembali_id: $(this).val()
-			},
-			success: function(html) {
+	// $('#kembali_id').on('change', function() {
+	// 	$.ajax({
+	// 		url: "{{ url('/api/city2') }}",
+	// 		type: "GET",
+	// 		data: {
+	// 			kembali_id: $(this).val()
+	// 		},
+	// 		success: function(html) {
 
-				$('#lokasi_kembali').empty()
-				$('#lokasi_kembali').append('<option value="">Pilih Kabupaten/Kota</option>')
-				$.each(html.data, function(key, item) {
-					$('#lokasi_kembali').append('<option value="' + item.id + '">' + item.city_name + '</option>')
-				})
-			}
-		});
-	});
+	// 			$('#lokasi_kembali').empty()
+	// 			$('#lokasi_kembali').append('<option value="">Pilih Kabupaten/Kota</option>')
+	// 			$.each(html.data, function(key, item) {
+	// 				$('#lokasi_kembali').append('<option value="' + item.id + '">' + item.city_name + '</option>')
+	// 			})
+	// 		}
+	// 	});
+	// });
 
 	$('#kembali_id').on('change', function() {
+
+		const kembali_id = $(this).val().split(',');
+		const provinces2_id = kembali_id[0];
+		
 		$.ajax({
 			url: "{{ url('/api/cityprice2') }}",
 			type: "GET",
 			data: {
-				kembali_id: $(this).val(),
+				provinces2_id: provinces2_id,
 				product_id: product_id,
 
 			},

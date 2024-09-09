@@ -59,7 +59,7 @@ class CustomerController extends Controller
                  'customer_email' => $request->customer_email,
              ]);
          
-      return redirect(route('customer.index'))->with(['success' => 'Product Baru Ditambahkan']);
+      return redirect(route('acustomer.index'))->with(['success' => 'Product Baru Ditambahkan']);
       
       }
  
@@ -106,9 +106,6 @@ class CustomerController extends Controller
          $request->validate([
             'instagram' => 'required',
             'facebook' => 'required',
-            'customer_name' => 'required',
-            'customer_telpon' => 'required',
-            'customer_email' => 'required',
          ]);
  
          $customer = Customer::find($id);
@@ -116,12 +113,9 @@ class CustomerController extends Controller
              $customer->update([
                 'instagram' => $request->instagram,
                 'facebook' => $request->facebook,
-                'customer_name' => $request->customer_name,
-                'customer_telpon' => $request->customer_telpon,
-                'customer_email' => $request->customer_email,
              ]);
          
-          return redirect(route('customer.index'))->with(['success' => 'Product Baru Ditambahkan']);
+          return redirect(route('acustomer.index'))->with(['success' => 'Product Baru Ditambahkan']);
  
      }
  
@@ -136,6 +130,6 @@ class CustomerController extends Controller
      {
          $customer = Customer::find($id);
          $customer->delete();
-         return redirect(route('customer.index'))->with(['success' => 'Produk Sudah Dihapus']);
+         return redirect(route('acustomer.index'))->with(['success' => 'Produk Sudah Dihapus']);
      }
 }

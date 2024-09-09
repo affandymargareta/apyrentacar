@@ -156,7 +156,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('acustomer') }}">
+                  <a class="nav-link" href="{{ route('acustomer.index') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
@@ -239,7 +239,10 @@
                                 <label >Name</label>
                                 <label >Province Id</label>
                                 <select name="province_id" style="background: #f8f9fa !important; color: #0044cc !important;" class="rounded-pill form-control">
-                                    <option value="province_id">Pilih</option>
+                                    <option value="">Pilih</option>
+                                    @foreach ($province as $row)
+                                      <option value="{{ $row->id }}">{{ $row->province }}</option>
+                                    @endforeach
                                 </select>  
                                 <small class="form-text text-muted">We'll never share your Name with anyone else.</small>
                               </div>

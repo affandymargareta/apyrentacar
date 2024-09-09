@@ -15,6 +15,15 @@ class ProductImage extends Model
 
     public function productName()
     {
-        return $this->belongsTo(ProductName::class,'product_id');
+        return $this->belongsTo(ProductName::class,'product_id','id');
     }
+
+    public function tanpaSopir()
+    {
+        return $this->belongsTo(TanpaSopir::class, 'product_id', 'name');
+    }    
+    public function denganSopir()
+    {
+        return $this->belongsTo(DenganSopir::class, 'product_id', 'name');
+    }  
 }

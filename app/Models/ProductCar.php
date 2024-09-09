@@ -22,4 +22,5 @@ class ProductCar extends Model
     {
         return $this->belongsTo(ProductName::class,'productname_id');
     }
+
 }

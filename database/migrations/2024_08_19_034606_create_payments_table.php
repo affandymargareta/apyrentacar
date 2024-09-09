@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->text('order_id');
-            $table->string('fitur')->nullable();
+            $table->text('fitur')->nullable();
             $table->string('number')->unique();
             $table->decimal('amount', 16, 2)->default(0);
             $table->string('method');

@@ -149,7 +149,7 @@
                       </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('acustomer') }}">
+                  <a class="nav-link" href="{{ route('acustomer.index') }}">
                         <i class="zmdi zmdi-accounts"></i>
                         Customers
                       </a>
